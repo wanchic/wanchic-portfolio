@@ -28,8 +28,26 @@
 !/tmp/storage/
 !/tmp/storage/.keep
 
+# Ignore certian public files
 /public/assets
 
 # Ignore key files for decrypting credentials and more.
-/config/*.key
+/config/credentials/*.yml.enc*
+!/config/credentials/production.yml.enc
+!/config/credentials/dev-template.yml.enc
+/config/credentials/*.key*
+/config/*.yml.enc*
+/config/*.key*
+
+# asdf version manager 
+.tool-versions
+
+# rvm
+.ruby-gemset
+
+# ruby-mine
+/.idea*
+
+# Vim Temp files
+*.swp
 
