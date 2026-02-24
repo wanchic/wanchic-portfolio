@@ -1,14 +1,41 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
   <head>
     <title><%= content_for(:title) || "Wanchic Portfolio" %></title>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Staff / Principal • Full-Stack Engineer • DevOps Engineer resume: AWS, Linux, CI/CD, Docker, Terraform, monitoring, security.">
+    <meta name="robots" content="index,follow">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="application-name" content="Wanchic Portfolio">
     <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Eric Wanchic — Staff / Principal • Full-Stack Engineer • DevOps Engineer">
+    <meta property="og:description" content="Resume + projects + contact.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://eric.wanchic.com/">
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <!-- Structured data (helps search + rich results a bit) -->
+    <script type="application/ld+json">
+    {
+      "@context":"https://schema.org",
+      "@type":"Person",
+      "name":"Eric Wanchic",
+      "jobTitle":"Staff / Principal • Full-Stack Engineer • DevOps Engineer",
+      "url":"https://eric.wanchic.com",
+      "sameAs":[
+        "https://www.linkedin.com/in/wanchic",
+        "https://github.com/wanchic",
+        "https://stackoverflow.com/users/1257980/eric-wanchic",
+        "https://dev.to/wanchic"
+      ]
+    }
+    </script>
+    
     <%= yield :head %>
 
     <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
@@ -23,7 +50,7 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body itemscope itemtype="https://schema.org/Person">
     <%= yield %>
   </body>
 </html>
