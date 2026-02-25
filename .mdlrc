@@ -1,1 +1,3 @@
 style "#{File.dirname(__FILE__)}/md_styles.rb"
+
+exclude 'vendor/**/*'
