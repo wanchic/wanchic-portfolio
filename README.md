@@ -47,3 +47,9 @@
   ```bash
   bundle install
   ```
+
+* Install `lefthook` git hooks
+
+  ```bash
+  lefthook install
+  ```
