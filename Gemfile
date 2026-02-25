@@ -57,7 +57,7 @@ group :development do
   gem "lefthook", require: false
   gem "mdl", require: false
   gem "scss_lint", require: false
-  gem "web-console" # Use console on exceptions pages [https://github.com/rails/web-console]
+  gem "web-console", "4.3.0" # Use console on exceptions pages [https://github.com/rails/web-console]
 end
 
 group :test do
