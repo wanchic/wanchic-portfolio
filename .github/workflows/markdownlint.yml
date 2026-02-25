@@ -21,4 +21,8 @@ jobs:
           bundler-cache: true
 
       - name: Run mdl
-        run: bundle exec mdl .
+        run: |
+          files=$(git ls-files '*.md' ':!:vendor/**')
+          if [ -n "$files" ]; then
+            bundle exec mdl $files
+          fi

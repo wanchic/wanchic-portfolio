@@ -39,6 +39,9 @@
 /config/*.yml.enc*
 /config/*.key*
 
+# Ignore npm packages
+/node_modules
+
 # asdf version manager 
 .tool-versions
 
