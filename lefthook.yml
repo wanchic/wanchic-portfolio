@@ -1,0 +1,73 @@
+# EXAMPLE USAGE:
+#
+#   Refer for explanation to following link:
+#   https://lefthook.dev/configuration/
+#
+# pre-push:
+#   jobs:
+#     - name: packages audit
+#       tags:
+#         - frontend
+#         - security
+#       run: yarn audit
+#
+#     - name: gems audit
+#       tags:
+#         - backend
+#         - security
+#       run: bundle audit
+#
+# pre-commit:
+#   parallel: true
+#   jobs:
+#     - run: yarn eslint {staged_files}
+#       glob: "*.{js,ts,jsx,tsx}"
+#
+#     - name: rubocop
+#       glob: "*.rb"
+#       exclude:
+#         - config/application.rb
+#         - config/routes.rb
+#       run: bundle exec rubocop --force-exclusion {all_files}
+#
+#     - name: govet
+#       files: git ls-files -m
+#       glob: "*.go"
+#       run: go vet {files}
+#
+#     - script: "hello.js"
+#       runner: node
+#
+#     - script: "hello.go"
+#       runner: go run
+
+pre-commit:
+  parallel: true
+  commands:
+    eslint:
+      glob: "*.{js,mjs,cjs}"
+      run: npx --no-install eslint {all_files}
+
+    jsonlint:
+      glob: "*.json"
+      run: |
+        for file in {all_files}; do
+          echo "Checking $file"
+          jq empty "$file"
+        done
+
+    markdownlint:
+      glob: "*.md"
+      run: bundle exec mdl {all_files}
+
+    rubocop:
+      glob: "*.rb"
+      run: bundle exec rubocop -a --parallel --force-exclusion {all_files}
+
+    stylelint:
+      glob: "*.{css,scss,sass}"
+      run: npx --no-install stylelint -f verbose --fix {all_files}
+
+    yamllint:
+      glob: "*.{yml,yaml}"
+      run: yamllint {all_files}

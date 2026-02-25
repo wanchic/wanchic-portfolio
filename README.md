@@ -1,24 +1,49 @@
-# README
+# Eric Wanchic's Online Portfolio
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Prerequisite OS Setup
 
-Things you may want to cover:
+### Ubuntu
 
-* Ruby version
+#### JSON
 
-* System dependencies
+  ```bash
+  sudo apt install jq
+  ```
 
-* Configuration
+#### CSS, SCSS, & SASS
 
-* Database creation
+  ```bash
+  npm install --save-dev \
+    stylelint \
+    stylelint-config-standard \
+    stylelint-config-standard-scss \
+    stylelint-scss
+  ```
 
-* Database initialization
+#### Javascript
 
-* How to run the test suite
+  ```bash
+  npm install --save-dev eslint
+  ```
 
-* Services (job queues, cache servers, search engines, etc.)
+#### YAML
 
-* Deployment instructions
+  ```bash
+  sudo apt install yamllint
+  ```
 
-* ...
+## Install Application Dependencies
+
+### Ruby & Rails Gems
+
+* Install bundler if not already installed
+
+  ```bash
+  gem install bundler
+  ```
+
+* Install bundled gem dependencies
+
+  ```bash
+  bundle install
+  ```

@@ -1,0 +1,35 @@
+name: JSON Lint (jq)
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  jsonlint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install jq
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq
+
+      - name: Validate JSON files
+        shell: bash
+        run: |
+          set -euo pipefail
+          files=$(git ls-files '*.json')
+          if [ -z "$files" ]; then
+            echo "No JSON files found."
+            exit 0
+          fi
+
+          echo "$files" | while IFS= read -r f; do
+            echo "Linting $f"
+            jq empty "$f"
+          done
