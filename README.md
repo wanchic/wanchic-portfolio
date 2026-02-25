@@ -4,32 +4,10 @@
 
 ### Ubuntu
 
-#### JSON
+#### JSON & YAML Linters
 
   ```bash
-  sudo apt install jq
-  ```
-
-#### CSS, SCSS, & SASS
-
-  ```bash
-  npm install --save-dev \
-    stylelint \
-    stylelint-config-standard \
-    stylelint-config-standard-scss \
-    stylelint-scss
-  ```
-
-#### Javascript
-
-  ```bash
-  npm install --save-dev eslint
-  ```
-
-#### YAML
-
-  ```bash
-  sudo apt install yamllint
+  sudo apt install jq yamllint
   ```
 
 ## Install Application Dependencies
@@ -52,4 +30,10 @@
 
   ```bash
   lefthook install
+  ```
+
+* Install `npm` packages
+
+  ```bash
+  npm install
   ```
