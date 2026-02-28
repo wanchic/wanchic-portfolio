@@ -1,4 +1,4 @@
-# HerdDogg - Rails Web Application
+# Eric Wanchic's Online Portfolio - Rails Web Application
 
 <table>
 <tr>
