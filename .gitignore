@@ -9,11 +9,15 @@
 
 # Ignore all environment files.
 /.env*
+!/.env-template
 
-# Ignore all logfiles and tempfiles.
+# Ignore all logfiles.
 /log/*
-/tmp/*
 !/log/.keep
+!/log/docker/.keep
+
+# Ignore all tempfiles.
+/tmp/*
 !/tmp/.keep
 
 # Ignore pidfiles, but keep the directory.
@@ -34,7 +38,6 @@
 # Ignore key files for decrypting credentials and more.
 /config/credentials/*.yml.enc*
 !/config/credentials/production.yml.enc
-!/config/credentials/dev-template.yml.enc
 /config/credentials/*.key*
 /config/*.yml.enc*
 /config/*.key*
@@ -53,4 +56,8 @@
 
 # Vim Temp files
 *.swp
+
+
+# Ignore key files for decrypting credentials and more.
+/config/credentials/*.key
 
