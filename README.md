@@ -45,7 +45,24 @@
 </tr>
 </table>
 
-## Docker Image or Rails App
+## Currently Hosting On
 
-* [Docker Server - README-Docker](README-Docker.md)
-* [Rails Server, Development (WebApp) - README-WebApp](README-WebApp.md)
+### With Cloudflare WAF - _*.wanchic.net_
+
+* [AWS EC2 (x86) - _aws.wanchic.net_](https://aws.wanchic.net)
+* [Google VM (x86) - _google.wanchic.net_](https://google.wanchic.net)
+
+### With Cloudflare WAF - _*.wanchic.com_
+
+* [AWS EC2 (x86) - _aws.wanchic.com_](https://aws.wanchic.com)
+* [Google VM (x86) - _google.wanchic.com_](https://google.wanchic.com)
+
+### _Pending_
+
+* [Azure VM (ARM) - _azure.wanchic.com_](https://azure.wanchic.)
+* [Azure VM (ARM) - _azure.wanchic.net_](https://azure.wanchic.net)
+
+## Getting Started
+
+* [Docker Server - _README-Docker_](README-Docker.md)
+* [Rails Server, Development (WebApp) - _README-WebApp_](README-WebApp.md)
