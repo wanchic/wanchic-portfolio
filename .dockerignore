@@ -1,8 +1,19 @@
 # See https://docs.docker.com/engine/reference/builder/#dockerignore-file for more about ignoring files.
 
 # Ignore git directory.
-/.git/
+/.git
+/.gitattributes
 /.gitignore
+/lefthook.yml
+
+# Version Managers -  rvm, nvm, asdf
+/.ruby-version
+/.ruby-gemset
+/.nvmrc
+/.tool-versions
+
+# IDEs - Ruby-mine
+/.idea*
 
 # Ignore bundler config.
 /.bundle
@@ -10,9 +21,28 @@
 # Ignore all environment files.
 /.env*
 
-# Ignore all default key files.
-/config/master.key
+# Rspec Tests & Coverage
+/test
+
+# Linting
+/.rspec
+/.mdlrc
+/.rubocop.yml
+/.stylelintrc.json
+/.yamllint.yml
+/eslint.config.mjs
+/md_styles.rb
+
+# Documents
+/README*
+/Changelog*
+
+# Ignore master key(s) for decrypting credentials and more.
+/config/credentials/*.yml.enc*
+!/config/credentials/production.yml.enc
 /config/credentials/*.key
+/config/*.yml.enc*
+/config/*.key
 
 # Ignore all logfiles and tempfiles.
 /log/*
@@ -31,9 +61,11 @@
 !/tmp/storage/.keep
 
 # Ignore assets.
-/node_modules/
+/node_modules
 /app/assets/builds/*
 !/app/assets/builds/.keep
+
+# Public
 /public/assets
 
 # Ignore CI service files.
@@ -48,4 +80,5 @@
 
 # Ignore Docker-related files
 /.dockerignore
+/compose*
 /Dockerfile*

@@ -1,0 +1,30 @@
+x-web-common: &web_common
+  ports:
+    - ${DOCKER_WEB_APP_PORT}:3000
+
+x-core-common: &core_common
+  networks:
+    - backend
+  env_file:
+    - .env
+
+x-image-common: &image_common
+  image: ${DOCKER_IMAGE}:${DOCKER_IMAGE_VERSION}
+
+x-build-common: &build_common
+  build:
+    context: .
+    dockerfile: Dockerfile
+
+services:
+  web_image:
+    <<: [*web_common, *core_common, *image_common]
+    profiles: ["web-image"]
+
+  web_build:
+    <<: [*web_common, *core_common, *build_common]
+    profiles: ["web-build"]
+
+networks:
+  backend:
+    driver: "bridge"

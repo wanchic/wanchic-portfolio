@@ -1,4 +1,4 @@
-# Eric Wanchic's Online Portfolio - Main README
+# Eric Wanchic's Online Portfolio - Rails Web Application
 
 <table>
 <tr>
@@ -45,7 +45,48 @@
 </tr>
 </table>
 
-## Docker Image or Rails App
+## Prerequisite OS Setup
 
-* [Docker Server - README-Docker](README-Docker.md)
-* [Rails Server, Development (WebApp) - README-WebApp](README-WebApp.md)
+* [Ubuntu - README-Ubuntu Setup](README-Ubuntu-Setup.md)
+
+## Download
+
+* Create & Setup your SSH keys on Github
+
+* Download `wanchic-portfolio`
+
+  ```bash
+  git clone git@github.com:wanchic/wanchic-portfolio.git
+  ```
+
+## Install Application Dependencies
+
+### Ruby & Rails Gems
+
+* Install bundler if not already installed
+
+  ```bash
+  gem install bundler
+  ```
+
+* Install bundled gem dependencies
+
+  ```bash
+  bundle install
+  ```
+
+### git pre-hooks
+
+* Install `lefthook` git hooks
+
+  ```bash
+  lefthook install
+  ```
+
+### Node Packages
+
+* Install `npm` packages
+
+  ```bash
+  npm install
+  ```

@@ -519,6 +519,17 @@
 
   <footer>
     <div>© <span id="y"></span> Eric Wanchic • Hosted on GitHub Pages</div>
+    <div><br></div>
+    <div>
+      Ruby: <span>
+        <%= RUBY_VERSION %>
+        <span style="font-style: italic">
+          <%= "p#{RUBY_PATCHLEVEL}" unless RUBY_PATCHLEVEL.zero? %>
+        </span>
+      </span> •
+      Rails: <span><%= Rails::VERSION::STRING %></span> •
+      App: <span><%= WanchicPortfolio::Application::VERSION %></span>
+    </div>
   </footer>
 </div>
 
