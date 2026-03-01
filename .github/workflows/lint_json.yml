@@ -1,4 +1,4 @@
-name: JSON Lint (jq)
+name: 🧹 JSON (jq)
 
 on:
   pull_request:

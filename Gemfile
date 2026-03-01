@@ -54,6 +54,8 @@ group :development, :test do
 end
 
 group :development do
+  gem "erb_lint", require: false
+  gem "html-proofer", require: false
   gem "lefthook", require: false
   gem "mdl", require: false
   gem "scss_lint", require: false

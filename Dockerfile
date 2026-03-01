@@ -19,8 +19,13 @@ WORKDIR /rails
 
 # Install base packages
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y curl libjemalloc2 libvips sqlite3 && \
-    ln -s /usr/lib/$(uname -m)-linux-gnu/libjemalloc.so.2 /usr/local/lib/libjemalloc.so && \
+    apt-get install --no-install-recommends -y \
+    curl=8.14.1-2+deb13u2 \
+    libjemalloc2=5.3.0-3 \
+    libvips42t64=8.16.1-1+b1 \
+    sqlite3=3.46.1-7 && \
+    ln -s "/usr/lib/$(uname -m)-linux-gnu/libjemalloc.so.2" \
+          /usr/local/lib/libjemalloc.so && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Set production environment variables and enable jemalloc for reduced memory usage and latency.
@@ -35,7 +40,11 @@ FROM base AS build
 
 # Install packages needed to build gems
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential git libyaml-dev pkg-config && \
+    apt-get install --no-install-recommends -y \
+    build-essential=12.12 \
+    git=1:2.47.3-0+deb13u1 \
+    libyaml-dev=0.2.5-2 \
+    pkg-config=1.8.1-4 && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Install application gems
@@ -55,6 +64,7 @@ COPY . .
 RUN bundle exec bootsnap precompile -j 1 app/ lib/
 
 # Precompiling assets for production without requiring secret RAILS_MASTER_KEY
+# hadolint ignore=DL3059
 RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
 
 

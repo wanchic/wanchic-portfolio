@@ -1,4 +1,4 @@
-name: Markdown Lint (mdl)
+name: 🧹 Markdown (mdl)
 
 on:
   pull_request:

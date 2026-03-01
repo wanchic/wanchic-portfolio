@@ -1,0 +1,22 @@
+---
+EnableDefaultLinters: true
+glob: "**/*.{html,text,js}{+*,}.erb"
+exclude:
+  - '**/vendor/**/*'
+  - '**/node_modules/**/*'
+linters:
+  ErbSafety:
+    enabled: true
+    better_html_config: .better-html.yml
+
+  Rubocop:
+    enabled: false
+    rubocop_config:
+      inherit_from:
+        - .rubocop.yml
+
+  AllowedScriptType:
+    enabled: true
+    allowed_types:
+      - "text/javascript"
+      - "application/ld+json"

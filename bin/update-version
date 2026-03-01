@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -e
+
+VERSION_FILE="config/initializers/version.rb"
+
+CURRENT=$(grep VERSION $VERSION_FILE | sed -E "s/.*['\"](.*)['\"].*/\1/")
+
+NEW=$(ruby -e "t=Time.now; puts t.strftime('%y.%-m%d.%-H%M') + t.zone[0].downcase")
+
+sed -i "s/$CURRENT/$NEW/" $VERSION_FILE
+
+echo "Version updated: $CURRENT → $NEW"
+
+git add $VERSION_FILE

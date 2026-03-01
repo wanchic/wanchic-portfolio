@@ -20,17 +20,25 @@
 
 <td valign="top">
 
-<img src="https://img.shields.io/badge/code%20style-linted-brightgreen"><br>
+<img src="https://github.com/wanchic/wanchic-portfolio/actions/workflows/ci_audit_gems.yml/badge.svg"><br>
+<img src="https://github.com/wanchic/wanchic-portfolio/actions/workflows/ci_audit_js.yml/badge.svg"><br>
+<img src="https://github.com/wanchic/wanchic-portfolio/actions/workflows/ci_audit_ruby.yml/badge.svg"><br>
+<img src="https://github.com/wanchic/wanchic-portfolio/actions/workflows/ci_code_test.yml/badge.svg"><br>
+<img src="https://github.com/wanchic/wanchic-portfolio/actions/workflows/ci_system_test.yml/badge.svg"><br>
 
 </td>
 
 <td valign="top">
 
-<img src="https://github.com/wanchic/wanchic-portfolio/actions/workflows/rubocop.yml/badge.svg"><br>
-<img src="https://github.com/wanchic/wanchic-portfolio/actions/workflows/eslint.yml/badge.svg"><br>
-<img src="https://github.com/wanchic/wanchic-portfolio/actions/workflows/stylelint.yml/badge.svg"><br>
-<img src="https://github.com/wanchic/wanchic-portfolio/actions/workflows/yamllint.yml/badge.svg"><br>
-<img src="https://github.com/wanchic/wanchic-portfolio/actions/workflows/jsonlint.yml/badge.svg">
+<img src="https://github.com/wanchic/wanchic-portfolio/actions/workflows/lint_css_sass.yml/badge.svg"><br>
+<img src="https://github.com/wanchic/wanchic-portfolio/actions/workflows/lint_docker.yml/badge.svg"><br>
+<img src="https://github.com/wanchic/wanchic-portfolio/actions/workflows/lint_erb.yml/badge.svg"><br>
+<img src="https://github.com/wanchic/wanchic-portfolio/actions/workflows/lint_html.yml/badge.svg"><br>
+<img src="https://github.com/wanchic/wanchic-portfolio/actions/workflows/lint_js.yml/badge.svg"><br>
+<img src="https://github.com/wanchic/wanchic-portfolio/actions/workflows/lint_json.yml/badge.svg"><br>
+<img src="https://github.com/wanchic/wanchic-portfolio/actions/workflows/lint_markdown.yml/badge.svg"><br>
+<img src="https://github.com/wanchic/wanchic-portfolio/actions/workflows/lint_ruby.yml/badge.svg"><br>
+<img src="https://github.com/wanchic/wanchic-portfolio/actions/workflows/lint_yaml.yml/badge.svg"><br>
 
 </td>
 

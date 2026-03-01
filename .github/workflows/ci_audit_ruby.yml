@@ -1,4 +1,4 @@
-name: RuboCop
+name: 🔍 Ruby Audit (brakeman)
 
 on:
   pull_request:
@@ -7,18 +7,17 @@ on:
       - main
 
 jobs:
-  rubocop:
+  scan_ruby:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
 
-      - name: Setup Ruby
+      - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: .ruby-version
           bundler-cache: true
 
-      - name: Run RuboCop
-        run: bundle exec rubocop --parallel
+      - name: Scan for common Rails security vulnerabilities using static analysis
+        run: bin/brakeman --no-pager

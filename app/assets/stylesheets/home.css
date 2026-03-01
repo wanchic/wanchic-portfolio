@@ -16,6 +16,7 @@
 }
 
 *{box-sizing:border-box}
+
 html,body{height:100%}
 
 body{
@@ -361,44 +362,11 @@ footer{
 
 /* Glass chip (soft edges, faded border) */
 .logo-badge{
-    /* width: 28px;             !* bigger chip *! */
-
-    /* height: 28px; */
-
-    /* padding: 2px;            !* tight padding *! */
     border-radius: 9px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-
-    /* softer “border”: no harsh line */
-
-    /* background: rgba(255,255,255,.07); */
-
-    /* box-shadow: */
-
-    /*        inset 0 0 0 1px rgba(255,255,255,.06),  !* faint inner edge *! */
-
-    /*        0 8px 18px rgba(0,0,0,.38),             !* depth *! */
-
-    /*        0 0 0 1px rgba(116,192,252,.06);        !* barely-there outer tint *! */
 }
-
-/* Keep your hover feel + make chip react */
-
-/* .cta.social-icons a:hover .logo-badge{ */
-
-/*    background: rgba(255,255,255,.10); */
-
-/*    box-shadow: */
-
-/*            inset 0 0 0 1px rgba(255,255,255,.08), */
-
-/*            0 10px 22px rgba(0,0,0,.45), */
-
-/*            0 0 0 1px rgba(116,192,252,.14); */
-
-/* } */
 
 /* Dark-background readability “halo” for the logo art */
 .logo-badge svg{
