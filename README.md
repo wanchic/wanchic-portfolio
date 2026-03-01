@@ -50,17 +50,14 @@
 ### With Cloudflare WAF - _*.wanchic.net_
 
 * [AWS EC2 (x86) - _aws.wanchic.net_](https://aws.wanchic.net)
+* [Azure VM (arm64) - _azure.wanchic.net_](https://azure.wanchic.net)
 * [Google VM (x86) - _google.wanchic.net_](https://google.wanchic.net)
 
 ### With Cloudflare WAF - _*.wanchic.com_
 
 * [AWS EC2 (x86) - _aws.wanchic.com_](https://aws.wanchic.com)
+* [Azure VM (arm64) - _azure.wanchic.com_](https://azure.wanchic.)
 * [Google VM (x86) - _google.wanchic.com_](https://google.wanchic.com)
-
-### _Pending_
-
-* [Azure VM (ARM) - _azure.wanchic.com_](https://azure.wanchic.)
-* [Azure VM (ARM) - _azure.wanchic.net_](https://azure.wanchic.net)
 
 ## Getting Started
 
