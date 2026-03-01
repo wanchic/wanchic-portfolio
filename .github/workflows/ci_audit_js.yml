@@ -1,4 +1,4 @@
-name: ✅ Javascript Audit (inportmap)
+name: 🔍 Javascript Audit (inportmap)
 
 on:
   pull_request:

@@ -1,4 +1,4 @@
-name: 🔍 Ruby Audit (brakeman)
+name: 🧹 ERB (erb_lint)
 
 on:
   pull_request:
@@ -7,17 +7,21 @@ on:
       - main
 
 jobs:
-  scan_ruby:
+  rubocop:
     runs-on: ubuntu-latest
+
+    env:
+      RUBOCOP_CACHE_ROOT: tmp/rubocop
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
 
-      - name: Set up Ruby
+      - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
+          ruby-version: .ruby-version
           bundler-cache: true
 
-      - name: Scan for common Rails security vulnerabilities using static analysis
-        run: bin/brakeman --no-pager
+      - name: Run ERB Lint
+        run: bundle exec erb_lint --lint-all

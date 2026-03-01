@@ -1,4 +1,4 @@
-name: ✅ System Test (test unit)
+name: 🔬 System Test (test unit)
 
 on:
   pull_request:

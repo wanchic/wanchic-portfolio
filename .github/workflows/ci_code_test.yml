@@ -1,4 +1,4 @@
-name: ✅ Code Test (test unit)
+name: 🧪 Code Test (test unit)
 
 on:
   pull_request:
