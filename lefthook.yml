@@ -44,11 +44,19 @@
 pre-commit:
   parallel: true
   commands:
-    eslint:
+    css-lint:
+      glob: "*.{css,scss,sass}"
+      run: npx --no-install stylelint -f verbose --fix {all_files}
+
+    docker-lint:
+      glob: "Dockerfile"
+      run: docker run --rm -i hadolint/hadolint < {all_files}
+
+    js-lint:
       glob: "*.{js,mjs,cjs}"
       run: npx --no-install eslint {all_files}
 
-    jsonlint:
+    json-lint:
       glob: "*.json"
       run: |
         for file in {all_files}; do
@@ -56,18 +64,29 @@ pre-commit:
           jq empty "$file"
         done
 
-    markdownlint:
+    markdown-lint:
       glob: "*.md"
       run: bundle exec mdl {all_files}
 
-    rubocop:
+    ruby-lint:
       glob: "*.rb"
       run: bundle exec rubocop -a --parallel --force-exclusion {all_files}
 
-    stylelint:
-      glob: "*.{css,scss,sass}"
-      run: npx --no-install stylelint -f verbose --fix {all_files}
-
-    yamllint:
+    yaml-lint:
       glob: "*.{yml,yaml}"
       run: yamllint {all_files}
+
+    gem-audit:
+      run: bin/bundler-audit
+
+    js-audit:
+      run: bin/importmap audit
+
+    ruby-audit:
+      run: bin/brakeman --no-pager
+
+    code-test:
+      run: bin/rails db:test:prepare && bin/rails test
+
+    system-test:
+      run: bin/rails db:test:prepare && bin/rails test:system

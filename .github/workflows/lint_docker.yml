@@ -1,0 +1,20 @@
+name: 🧹 Docker (hadolint)
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  hadolint:
+    name: Lint Dockerfile
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Run Hadolint
+        run: |
+          docker run --rm -i hadolint/hadolint < Dockerfile

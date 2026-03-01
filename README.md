@@ -21,16 +21,22 @@
 <td valign="top">
 
 <img src="https://img.shields.io/badge/code%20style-linted-brightgreen"><br>
+<img src="https://github.com/wanchic/wanchic-portfolio/actions/workflows/ci_audit_js.yml/badge.svg"><br>
+<img src="https://github.com/wanchic/wanchic-portfolio/actions/workflows/ci_audit_ruby.yml/badge.svg"><br>
+<img src="https://github.com/wanchic/wanchic-portfolio/actions/workflows/ci_code_test.yml/badge.svg"><br>
+<img src="https://github.com/wanchic/wanchic-portfolio/actions/workflows/ci_system_test.yml/badge.svg"><br>
 
 </td>
 
 <td valign="top">
 
-<img src="https://github.com/wanchic/wanchic-portfolio/actions/workflows/rubocop.yml/badge.svg"><br>
-<img src="https://github.com/wanchic/wanchic-portfolio/actions/workflows/eslint.yml/badge.svg"><br>
-<img src="https://github.com/wanchic/wanchic-portfolio/actions/workflows/stylelint.yml/badge.svg"><br>
-<img src="https://github.com/wanchic/wanchic-portfolio/actions/workflows/yamllint.yml/badge.svg"><br>
-<img src="https://github.com/wanchic/wanchic-portfolio/actions/workflows/jsonlint.yml/badge.svg">
+<img src="https://github.com/wanchic/wanchic-portfolio/actions/workflows/lint_css_sass.yml/badge.svg"><br>
+<img src="https://github.com/wanchic/wanchic-portfolio/actions/workflows/lint_docker.yml/badge.svg"><br>
+<img src="https://github.com/wanchic/wanchic-portfolio/actions/workflows/lint_js.yml/badge.svg"><br>
+<img src="https://github.com/wanchic/wanchic-portfolio/actions/workflows/lint_json.yml/badge.svg"><br>
+<img src="https://github.com/wanchic/wanchic-portfolio/actions/workflows/lint_markdown.yml/badge.svg"><br>
+<img src="https://github.com/wanchic/wanchic-portfolio/actions/workflows/lint_ruby.yml/badge.svg"><br>
+<img src="https://github.com/wanchic/wanchic-portfolio/actions/workflows/lint_yaml.yml/badge.svg"><br>
 
 </td>
 
@@ -45,7 +51,7 @@
 </tr>
 </table>
 
-## Currently Hosting On
+## 🌍 Currently Hosting On
 
 ### With Cloudflare WAF - _*.wanchic.net_
 
@@ -59,7 +65,11 @@
 * [Azure VM (arm64) - _azure.wanchic.com_](https://azure.wanchic.)
 * [Google VM (x86) - _google.wanchic.com_](https://google.wanchic.com)
 
-## Getting Started
+## 📦 Docker Images
 
-* [Docker Server - _README-Docker_](README-Docker.md)
-* [Rails Server, Development (WebApp) - _README-WebApp_](README-WebApp.md)
+* [wanchic/wanchic-portfolio](https://hub.docker.com/r/wanchic/wanchic-portfolio)
+
+## 🏗️ Getting Started
+
+* [⚙️ Docker Server - _README-Docker_](README-Docker.md)
+* [🔧 Rails Server, Development (WebApp) - _README-WebApp_](README-WebApp.md)
