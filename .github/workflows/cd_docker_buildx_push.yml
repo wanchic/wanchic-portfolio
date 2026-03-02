@@ -39,8 +39,8 @@ jobs:
           DOCKER_EXTRA_TAGS: "sha-${{ github.sha }}"
 
           # ✅ Buildx cache using GitHub Actions cache backend
-          DOCKER_CACHE_FROM: "type=gha,scope=main"
-          DOCKER_CACHE_TO: "type=gha,scope=main,mode=max"
+          DOCKER_CACHE_FROM: "type=registry,ref=wanchic/wanchic-portfolio:buildcache"
+          DOCKER_CACHE_TO: "type=registry,ref=wanchic/wanchic-portfolio:buildcache,mode=max"
         run: |
           chmod +x bin/docker-build-image
           bin/docker-build-image
