@@ -57,6 +57,8 @@
 # Vim Temp files
 *.swp
 
+# Docker Caching
+.docker-cache
 
 # Ignore key files for decrypting credentials and more.
 /config/credentials/*.key

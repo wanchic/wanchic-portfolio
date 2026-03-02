@@ -1,4 +1,4 @@
-name: 🔥 Docker Build (multi-arch) and Push
+name: 🔥 Docker Build & Push
 
 on:
   push:
@@ -35,10 +35,12 @@ jobs:
         env:
           DOCKER_IMAGE: wanchic/wanchic-portfolio
           DOCKER_PLATFORMS: linux/amd64,linux/arm64
-          # Only push latest on main (this workflow only runs on main anyway, but keeping pattern)
           PUSH_LATEST: "true"
-          # Example extra tags:
           DOCKER_EXTRA_TAGS: "sha-${{ github.sha }}"
+
+          # ✅ Buildx cache using GitHub Actions cache backend
+          DOCKER_CACHE_FROM: "type=gha,scope=main"
+          DOCKER_CACHE_TO: "type=gha,scope=main,mode=max"
         run: |
           chmod +x bin/docker-build-image
           bin/docker-build-image
