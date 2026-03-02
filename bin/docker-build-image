@@ -82,11 +82,39 @@ done
 
 (IFS=,; echo "BUILDER_ARGS=${BUILDER_VALUES[*]}")
 
+# Optional build cache (great for GitHub Actions)
+CACHE_ARGS=()
+
+if [[ -n "${DOCKER_CACHE_TO:-}" ]]; then
+  CACHE_ARGS+=( --cache-to "$DOCKER_CACHE_TO" )
+fi
+
+if [[ -n "${DOCKER_CACHE_FROM:-}" ]]; then
+  # If local cache, only use it when it exists
+  if [[ "$DOCKER_CACHE_FROM" == type=local,* ]]; then
+    mkdir -p .docker-cache
+
+    if [[ -f .docker-cache/index.json ]]; then
+      CACHE_ARGS+=( --cache-from "$DOCKER_CACHE_FROM" )
+    fi
+  else
+    CACHE_ARGS+=( --cache-from "$DOCKER_CACHE_FROM" )
+  fi
+fi
+
+CACHE_ARGS_VALUES=()
+for ((i=0; i<${#CACHE_ARGS[@]}; i+=2)); do
+  CACHE_ARGS_VALUES+=(" ${CACHE_ARGS[i]} ${CACHE_ARGS[i+1]}")
+done
+
+(IFS=,; echo "CACHE_ARGS=${CACHE_ARGS_VALUES[*]}")
+
 docker login
 
 DOCKER_BUILDKIT=1 docker buildx build \
   "${BUILDER_ARGS[@]}" \
   --platform "$PLATFORMS" \
+  "${CACHE_ARGS[@]}" \
   --build-arg RUBY_VERSION="$DOCKER_RUBY_VERSION" \
   --build-arg APP_VERSION="$DOCKER_APP_VERSION" \
   --build-arg BUILD_DATE="$DOCKER_BUILD_DATE" \

@@ -6,6 +6,7 @@
 <th>✅ CI</th>
 <th>🧹 Linting</th>
 <th>📦 Repository</th>
+<th>🚀 CD</th>
 </tr>
 
 <tr>
@@ -48,6 +49,12 @@
 <img src="https://img.shields.io/github/last-commit/wanchic/wanchic-portfolio"><br>
 <img src="https://img.shields.io/github/repo-size/wanchic/wanchic-portfolio"><br>
 <img src="https://img.shields.io/github/issues/wanchic/wanchic-portfolio">
+
+</td>
+
+<td valign="top">
+
+<img src="https://github.com/wanchic/wanchic-portfolio/actions/workflows/cd_docker_buildx_push.yml/badge.svg"><br>
 
 </td>
 
