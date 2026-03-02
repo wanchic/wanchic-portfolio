@@ -1,0 +1,24 @@
+name: 🧹 BASH (shellcheck)
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  yamllint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Install yamllint
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y shellcheck
+
+      - name: Run shellcheck
+        run: |
+          grep -rl '^#!/.*\(bash\|sh\)' bin | xargs shellcheck

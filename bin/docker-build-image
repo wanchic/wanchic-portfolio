@@ -3,6 +3,14 @@ set -euo pipefail
 
 mkdir -p ./log/docker
 
+if [[ -z "${CI:-}" && -f .env ]]; then
+  echo "Loading .env"
+  set -a
+  # shellcheck disable=SC1091
+  source .env
+  set +a
+fi
+
 DOCKER_RUBY_VERSION="$(tr -d '[:space:]' < .ruby-version | sed 's/^ruby-//')"
 
 DOCKER_APP_VERSION="$(
@@ -18,18 +26,70 @@ fi
 DOCKER_BUILD_DATE="$(date +%Y-%m-%d)"
 LOG_FILE="./log/docker/build-${DOCKER_APP_VERSION}-$(date +%y-%m%d-%H%M).log"
 
+# ---- NEW: allow CI/local overrides via env vars ----
+IMAGE_NAME="${DOCKER_IMAGE:-wanchic/wanchic-portfolio}"
+PLATFORMS="${DOCKER_PLATFORMS:-linux/amd64,linux/arm64}"
+
+# If you want "latest" only sometimes (e.g. only on main), CI can set this.
+PUSH_LATEST="${PUSH_LATEST:-true}"
+
+# Optional: use a specific buildx builder if provided (local convenience).
+# In GitHub Actions, you typically *don't* set this so it uses the builder from setup-buildx-action.
+BUILDER_NAME="${DOCKER_BUILDER:-}"
+
 echo "RUBY_VERSION=$DOCKER_RUBY_VERSION"
 echo "APP_VERSION=$DOCKER_APP_VERSION"
 echo "BUILD_DATE=$DOCKER_BUILD_DATE"
+echo "IMAGE_NAME=$IMAGE_NAME"
+echo "PLATFORMS=$PLATFORMS"
+echo "PUSH_LATEST=$PUSH_LATEST"
+echo "DOCKER_BUILDER=$BUILDER_NAME"
 echo "LOG_FILE=$LOG_FILE"
 
+# Tag list (always version tag; latest optional)
+TAGS=( -t "${IMAGE_NAME}:${DOCKER_APP_VERSION}" )
+
+if [[ "$PUSH_LATEST" == "true" ]]; then
+  TAGS+=( -t "${IMAGE_NAME}:latest" )
+fi
+
+# If CI wants to add more tags (sha, branch, etc), it can pass DOCKER_EXTRA_TAGS
+# as a whitespace-separated list like: "sha-abc123 main"
+if [[ -n "${DOCKER_EXTRA_TAGS:-}" ]]; then
+  for t in $DOCKER_EXTRA_TAGS; do
+    TAGS+=( -t "${IMAGE_NAME}:${t}" )
+  done
+fi
+
+TAG_VALUES=()
+for ((i=0; i<${#TAGS[@]}; i+=2)); do
+  TAG_VALUES+=(" ${TAGS[i]} ${TAGS[i+1]}")
+done
+
+(IFS=,; echo "TAGS=${TAG_VALUES[*]}")
+
+# Optional builder flag
+BUILDER_ARGS=()
+
+if [[ -n "$BUILDER_NAME" ]]; then
+  BUILDER_ARGS+=( --builder "$BUILDER_NAME" )
+fi
+
+BUILDER_VALUES=()
+for ((i=0; i<${#BUILDER_ARGS[@]}; i+=2)); do
+  BUILDER_VALUES+=(" ${BUILDER_ARGS[i]} ${BUILDER_ARGS[i+1]}")
+done
+
+(IFS=,; echo "BUILDER_ARGS=${BUILDER_VALUES[*]}")
+
+docker login
+
 DOCKER_BUILDKIT=1 docker buildx build \
-  --builder multi \
-  --platform linux/amd64,linux/arm64 \
+  "${BUILDER_ARGS[@]}" \
+  --platform "$PLATFORMS" \
   --build-arg RUBY_VERSION="$DOCKER_RUBY_VERSION" \
   --build-arg APP_VERSION="$DOCKER_APP_VERSION" \
   --build-arg BUILD_DATE="$DOCKER_BUILD_DATE" \
-  -t "wanchic/wanchic-portfolio:${DOCKER_APP_VERSION}" \
-  -t "wanchic/wanchic-portfolio:latest" \
+  "${TAGS[@]}" \
   --push \
   --progress=plain . 2>&1 | tee "$LOG_FILE"
