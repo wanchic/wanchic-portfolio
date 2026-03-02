@@ -1,46 +1,137 @@
 name: 🔥 Docker Build & Push
 
 on:
+  pull_request:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
   workflow_dispatch:
 
 permissions:
   contents: read
 
+env:
+  IMAGE_NAME: wanchic/wanchic-portfolio
+  CACHE_REF: wanchic/wanchic-portfolio:buildcache
+
 jobs:
-  build-and-push:
+  build-amd64:
+    name: Build & Push (amd64)
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v6
 
-      # Enables building ARM images on an amd64 runner
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
-
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      # Login to Docker Hub using GitHub Secrets
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      # Your script should call buildx with --platform ... --push
-      - name: Build and push (via script)
+      - name: Build and push (amd64 via script)
         env:
-          DOCKER_IMAGE: wanchic/wanchic-portfolio
-          DOCKER_PLATFORMS: linux/amd64,linux/arm64
-          PUSH_LATEST: "true"
+          DOCKER_IMAGE: ${{ env.IMAGE_NAME }}
+          DOCKER_PLATFORMS: linux/amd64
+          DOCKER_TAG_SUFFIX: "-amd64"
+
+          # Don't publish unsuffixed latest/version here—manifest job will do that.
+          PUSH_LATEST: "false"
+
           DOCKER_EXTRA_TAGS: "sha-${{ github.sha }}"
 
-          # ✅ Buildx cache using GitHub Actions cache backend
-          DOCKER_CACHE_FROM: "type=registry,ref=wanchic/wanchic-portfolio:buildcache"
-          DOCKER_CACHE_TO: "type=registry,ref=wanchic/wanchic-portfolio:buildcache,mode=max,compression=zstd"
+          DOCKER_CACHE_FROM: "type=registry,ref=${{ env.CACHE_REF }}-amd64"
+          DOCKER_CACHE_TO: "type=registry,ref=${{ env.CACHE_REF }}-amd64,mode=max,compression=zstd"
         run: |
           chmod +x bin/docker-build-image
           bin/docker-build-image
+
+  build-arm64:
+    name: Build & Push (arm64)
+    runs-on: ubuntu-24.04-arm
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push (arm64 via script)
+        env:
+          DOCKER_IMAGE: ${{ env.IMAGE_NAME }}
+          DOCKER_PLATFORMS: linux/arm64
+          DOCKER_TAG_SUFFIX: "-arm64"
+
+          # Don't publish unsuffixed latest/version here—manifest job will do that.
+          PUSH_LATEST: "false"
+
+          DOCKER_EXTRA_TAGS: "sha-${{ github.sha }}"
+
+          DOCKER_CACHE_FROM: "type=registry,ref=${{ env.CACHE_REF }}-arm64"
+          DOCKER_CACHE_TO: "type=registry,ref=${{ env.CACHE_REF }}-arm64,mode=max,compression=zstd"
+        run: |
+          chmod +x bin/docker-build-image
+          bin/docker-build-image
+
+  manifest:
+    name: Create & Push Multi-Arch Manifests
+    runs-on: ubuntu-latest
+    needs: [build-amd64, build-arm64]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Compute APP_VERSION
+        id: ver
+        run: |
+          APP_VERSION="$(
+            sed -nE 's/.*VERSION[[:space:]]*=[[:space:]]*["'\''"]([^"'\''"]+)["'\''"].*/\1/p' \
+            config/initializers/version.rb | head -n1
+          )"
+          if [ -z "$APP_VERSION" ]; then
+            echo "ERROR: Could not extract VERSION" >&2
+            exit 1
+          fi
+          echo "app_version=$APP_VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Create and push manifests (version, latest, sha)
+        env:
+          APP_VERSION: ${{ steps.ver.outputs.app_version }}
+          SHA_TAG: sha-${{ github.sha }}
+          IMAGE: ${{ env.IMAGE_NAME }}
+        run: |
+          set -euo pipefail
+
+          # Combine the two arch-specific images into multi-arch tags
+          docker buildx imagetools create \
+            -t "${IMAGE}:${APP_VERSION}" \
+            "${IMAGE}:${APP_VERSION}-amd64" \
+            "${IMAGE}:${APP_VERSION}-arm64"
+
+          docker buildx imagetools create \
+            -t "${IMAGE}:latest" \
+            "${IMAGE}:latest-amd64" \
+            "${IMAGE}:latest-arm64"
+
+          docker buildx imagetools create \
+            -t "${IMAGE}:${SHA_TAG}" \
+            "${IMAGE}:${SHA_TAG}-amd64" \
+            "${IMAGE}:${SHA_TAG}-arm64"

@@ -46,18 +46,21 @@ echo "PUSH_LATEST=$PUSH_LATEST"
 echo "DOCKER_BUILDER=$BUILDER_NAME"
 echo "LOG_FILE=$LOG_FILE"
 
+# Tags Suffix
+TAG_SUFFIX="${DOCKER_TAG_SUFFIX:-}"
+
 # Tag list (always version tag; latest optional)
-TAGS=( -t "${IMAGE_NAME}:${DOCKER_APP_VERSION}" )
+TAGS=( -t "${IMAGE_NAME}:${DOCKER_APP_VERSION}${TAG_SUFFIX}" )
 
 if [[ "$PUSH_LATEST" == "true" ]]; then
-  TAGS+=( -t "${IMAGE_NAME}:latest" )
+  TAGS+=( -t "${IMAGE_NAME}:latest${TAG_SUFFIX}" )
 fi
 
 # If CI wants to add more tags (sha, branch, etc), it can pass DOCKER_EXTRA_TAGS
 # as a whitespace-separated list like: "sha-abc123 main"
 if [[ -n "${DOCKER_EXTRA_TAGS:-}" ]]; then
   for t in $DOCKER_EXTRA_TAGS; do
-    TAGS+=( -t "${IMAGE_NAME}:${t}" )
+    TAGS+=( -t "${IMAGE_NAME}:${t}${TAG_SUFFIX}" )
   done
 fi
 
