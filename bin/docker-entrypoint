@@ -1,8 +1,11 @@
-#!/bin/bash -e
+#!/usr/bin/env bash
+set -e
 
-# If running the rails server then create or migrate existing database
-if [ "${@: -2:1}" == "./bin/rails" ] && [ "${@: -1:1}" == "server" ]; then
+args=("$@")
+n=${#args[@]}
+
+if (( n >= 2 )) && [[ "${args[n-2]}" == "./bin/rails" && "${args[n-1]}" == "server" ]]; then
   ./bin/rails db:prepare
 fi
 
-exec "${@}"
+exec "$@"
