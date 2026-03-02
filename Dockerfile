@@ -1,4 +1,4 @@
-# syntax=docker/dockerfile:1
+# syntax=docker/dockerfile:1.7
 # check=error=true
 
 # This Dockerfile is designed for production, not development. Use with Kamal or build'n'run by hand:
@@ -18,7 +18,9 @@ LABEL vendor="Eric Wanchic" \
 WORKDIR /rails
 
 # Install base packages
-RUN apt-get update -qq && \
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+    --mount=type=cache,target=/var/lib/apt,sharing=locked \
+    apt-get update -qq && \
     apt-get install --no-install-recommends -y \
     curl=8.14.1-2+deb13u2 \
     libjemalloc2=5.3.0-3 \
@@ -39,7 +41,9 @@ ENV RAILS_ENV="production" \
 FROM base AS build
 
 # Install packages needed to build gems
-RUN apt-get update -qq && \
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+    --mount=type=cache,target=/var/lib/apt,sharing=locked \
+    apt-get update -qq && \
     apt-get install --no-install-recommends -y \
     build-essential=12.12 \
     git=1:2.47.3-0+deb13u1 \
@@ -51,9 +55,11 @@ RUN apt-get update -qq && \
 COPY vendor/* ./vendor/
 COPY Gemfile Gemfile.lock ./
 
-RUN bundle install && \
-    rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git && \
-    # -j 1 disable parallel compilation to avoid a QEMU bug: https://github.com/rails/bootsnap/issues/495
+RUN bundle config set path "${BUNDLE_PATH}"
+
+RUN --mount=type=cache,target=/root/.bundle/cache,sharing=locked \
+    bundle install && \
+    rm -rf "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git && \
     bundle exec bootsnap precompile -j 1 --gemfile
 
 # Copy application code
@@ -61,11 +67,13 @@ COPY . .
 
 # Precompile bootsnap code for faster boot times.
 # -j 1 disable parallel compilation to avoid a QEMU bug: https://github.com/rails/bootsnap/issues/495
-RUN bundle exec bootsnap precompile -j 1 app/ lib/
+RUN --mount=type=cache,target=/rails/tmp,sharing=locked \
+    bundle exec bootsnap precompile -j 1 app/ lib/
 
 # Precompiling assets for production without requiring secret RAILS_MASTER_KEY
 # hadolint ignore=DL3059
-RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
+RUN --mount=type=cache,target=/rails/tmp,sharing=locked \
+    SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
 
 
 
