@@ -80,6 +80,3 @@
 
 # Ignore Docker-related files
 /.docker-cache
-/.dockerignore
-/compose*
-/Dockerfile*
