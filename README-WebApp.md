@@ -54,7 +54,8 @@
 
 <td valign="top">
 
-<img src="https://github.com/wanchic/wanchic-portfolio/actions/workflows/cd_docker_buildx_push.yml/badge.svg"><br>
+<img src="https://github.com/wanchic/wanchic-portfolio/actions/workflows/cd_docker_main_build.yml/badge.svg"><br>
+<img src="https://github.com/wanchic/wanchic-portfolio/actions/workflows/cd_docker_deps_build.yml/badge.svg"><br>
 
 </td>
 
