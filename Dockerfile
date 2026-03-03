@@ -21,8 +21,9 @@ WORKDIR /rails
 COPY . .
 
 RUN --mount=type=cache,target=/rails/tmp,sharing=locked \
-    bundle exec bootsnap precompile -j 1 app/ lib/
+    bundle exec bootsnap precompile -j 1 app/ lib/ \
 
+# hadolint ignore=DL3059
 RUN --mount=type=cache,target=/rails/tmp,sharing=locked \
     SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
 
