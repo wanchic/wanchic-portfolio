@@ -56,7 +56,7 @@ pre-commit:
       run: npx --no-install stylelint -f verbose --fix {all_files}
 
     docker-lint:
-      glob: "**/Dockerfile*"
+      glob: "Dockerfile*"
       run: |
         for file in {all_files}; do
           echo "Linting $file"

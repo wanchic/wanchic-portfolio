@@ -14,6 +14,7 @@ ARG RUBY_VERSION=4.0.1
 # These tags will be provided by CI (deps-amd64 / deps-arm64)
 ARG DEPS_IMAGE=wanchic/wanchic-portfolio:deps
 
+# hadolint ignore=DL3006
 FROM ${DEPS_IMAGE} AS build
 WORKDIR /rails
 
@@ -21,7 +22,7 @@ WORKDIR /rails
 COPY . .
 
 RUN --mount=type=cache,target=/rails/tmp,sharing=locked \
-    bundle exec bootsnap precompile -j 1 app/ lib/ \
+    bundle exec bootsnap precompile -j 1 app/ lib/
 
 # hadolint ignore=DL3059
 RUN --mount=type=cache,target=/rails/tmp,sharing=locked \
