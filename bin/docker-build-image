@@ -15,7 +15,8 @@ if [[ -z "${CI:-}" ]]; then
   bin/docker-build-deps
 fi
 
-DOCKER_RUBY_VERSION="${DOCKER_APP_VERSION:-$(bin/ruby-version)}"
+DOCKER_RUBY_VERSION="${DOCKER_RUBY_VERSION:-}"
+DOCKER_RUBY_VERSION="${DOCKER_RUBY_VERSION:-$(bin/ruby-version)}"
 
 DOCKER_APP_VERSION="${DOCKER_APP_VERSION:-}"
 DOCKER_APP_VERSION="${DOCKER_APP_VERSION:-$(bin/app-version)}"

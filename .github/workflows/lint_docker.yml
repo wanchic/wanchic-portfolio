@@ -8,13 +8,37 @@ on:
 
 jobs:
   hadolint:
-    name: Lint Dockerfile
+    name: Lint Dockerfile(s)
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
 
-      - name: Run Hadolint
+      - name: Lint with Hadolint (all Dockerfiles)
+        shell: bash
         run: |
-          docker run --rm -i hadolint/hadolint < Dockerfile
+          set -euo pipefail
+
+          # Find Dockerfiles (root + subdirs), excluding vendor/node_modules if you want
+          mapfile -t files < <(find . -type f -name 'Dockerfile*' \
+            -not -path './.git/*' \
+            -not -path './node_modules/*' \
+            -not -path './vendor/*' \
+            | sort)
+
+          if [[ ${#files[@]} -eq 0 ]]; then
+            echo "No Dockerfiles found."
+            exit 0
+          fi
+
+          echo "Found Dockerfiles:"
+          printf ' - %s\n' "${files[@]}"
+
+          for f in "${files[@]}"; do
+            echo ""
+            echo "==> hadolint: $f"
+            docker run --rm \
+              -v "$PWD/$f:/Dockerfile:ro" \
+              hadolint/hadolint hadolint /Dockerfile
+          done
