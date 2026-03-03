@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if [[ -z "${CI:-}" && -f .env ]]; then
+  echo "Loading .env"
+  set -a
+  # shellcheck disable=SC1091
+  source .env
+  set +a
+fi
+
+DOCKER_FILE="${DOCKER_DEPS_FILE:-Dockerfile.deps}"
+IMAGE_NAME="${DOCKER_IMAGE:-wanchic/wanchic-portfolio}"
+DOCKER_DEPS_IMAGE="${DOCKER_DEPS_IMAGE:-${IMAGE_NAME}:deps}"
+
+docker buildx build \
+  --builder multi \
+  --platform linux/amd64 \
+  -f "${DOCKER_FILE}" \
+  -t "${DOCKER_DEPS_IMAGE}-amd64" \
+  --push \
+  .
+
+docker buildx build \
+  --builder multi \
+  --platform linux/arm64 \
+  -f "${DOCKER_FILE}" \
+  -t "${DOCKER_DEPS_IMAGE}-arm64" \
+  --push \
+  .
+
+docker buildx imagetools create \
+  -t "${DOCKER_DEPS_IMAGE}" \
+  "${DOCKER_DEPS_IMAGE}-amd64" \
+  "${DOCKER_DEPS_IMAGE}-arm64"

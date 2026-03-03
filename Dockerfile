@@ -2,12 +2,31 @@
 # check=error=true
 
 # This Dockerfile is designed for production, not development. Use with Kamal or build'n'run by hand:
+
 # docker build -t wanchic_portfolio .
 # docker run -d -p 80:80 -e RAILS_MASTER_KEY=<value from config/master.key> --name wanchic_portfolio wanchic_portfolio
 
 # For a containerized dev environment, see Dev Containers: https://guides.rubyonrails.org/getting_started_with_devcontainer.html
 
 # Make sure RUBY_VERSION matches the Ruby version in .ruby-version
+ARG RUBY_VERSION=4.0.1
+
+# These tags will be provided by CI (deps-amd64 / deps-arm64)
+ARG DEPS_IMAGE=wanchic/wanchic-portfolio:deps
+
+FROM ${DEPS_IMAGE} AS build
+WORKDIR /rails
+
+# Copy application code (this is the “fast changing” part)
+COPY . .
+
+RUN --mount=type=cache,target=/rails/tmp,sharing=locked \
+    bundle exec bootsnap precompile -j 1 app/ lib/
+
+RUN --mount=type=cache,target=/rails/tmp,sharing=locked \
+    SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
+
+# Final stage: slim runtime
 ARG RUBY_VERSION=4.0.1
 FROM docker.io/library/ruby:$RUBY_VERSION-slim-trixie AS base
 
@@ -28,7 +47,7 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     sqlite3=3.46.1-7 && \
     ln -s "/usr/lib/$(uname -m)-linux-gnu/libjemalloc.so.2" \
           /usr/local/lib/libjemalloc.so && \
-    rm -rf /var/lib/apt/lists /var/cache/apt/archives
+    rm -rf /var/lib/apt/lists/*
 
 # Set production environment variables and enable jemalloc for reduced memory usage and latency.
 ENV RAILS_ENV="production" \
@@ -36,50 +55,6 @@ ENV RAILS_ENV="production" \
     BUNDLE_PATH="/usr/local/bundle" \
     BUNDLE_WITHOUT="development" \
     LD_PRELOAD="/usr/local/lib/libjemalloc.so"
-
-# Throw-away build stage to reduce size of final image
-FROM base AS build
-
-# Install packages needed to build gems
-RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
-    --mount=type=cache,target=/var/lib/apt,sharing=locked \
-    apt-get update -qq && \
-    apt-get install --no-install-recommends -y \
-    build-essential=12.12 \
-    git=1:2.47.3-0+deb13u1 \
-    libyaml-dev=0.2.5-2 \
-    pkg-config=1.8.1-4 && \
-    rm -rf /var/lib/apt/lists /var/cache/apt/archives
-
-# Install application gems
-COPY vendor/* ./vendor/
-COPY Gemfile Gemfile.lock ./
-
-RUN bundle config set path "${BUNDLE_PATH}"
-
-RUN --mount=type=cache,target=/root/.bundle/cache,sharing=locked \
-    bundle install && \
-    rm -rf "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git && \
-    bundle exec bootsnap precompile -j 1 --gemfile
-
-# Copy application code
-COPY . .
-
-# Precompile bootsnap code for faster boot times.
-# -j 1 disable parallel compilation to avoid a QEMU bug: https://github.com/rails/bootsnap/issues/495
-RUN --mount=type=cache,target=/rails/tmp,sharing=locked \
-    bundle exec bootsnap precompile -j 1 app/ lib/
-
-# Precompiling assets for production without requiring secret RAILS_MASTER_KEY
-# hadolint ignore=DL3059
-RUN --mount=type=cache,target=/rails/tmp,sharing=locked \
-    SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
-
-
-
-
-# Final stage for app image
-FROM base
 
 # Run and own only the runtime files as a non-root user for security
 RUN groupadd --system --gid 1000 rails && \

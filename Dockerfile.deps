@@ -1,0 +1,47 @@
+# syntax=docker/dockerfile:1.7
+# check=error=true
+
+ARG RUBY_VERSION=4.0.1
+FROM docker.io/library/ruby:$RUBY_VERSION-slim-trixie AS deps
+
+WORKDIR /rails
+
+# Runtime packages (same as your base)
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+    --mount=type=cache,target=/var/lib/apt,sharing=locked \
+    apt-get update -qq && \
+    apt-get install --no-install-recommends -y \
+      curl=8.14.1-2+deb13u2 \
+      libjemalloc2=5.3.0-3 \
+      libvips42t64=8.16.1-1+b1 \
+      sqlite3=3.46.1-7 && \
+    ln -s "/usr/lib/$(uname -m)-linux-gnu/libjemalloc.so.2" /usr/local/lib/libjemalloc.so && \
+    rm -rf /var/lib/apt/lists/*
+
+ENV RAILS_ENV="production" \
+    BUNDLE_DEPLOYMENT="1" \
+    BUNDLE_PATH="/usr/local/bundle" \
+    BUNDLE_WITHOUT="development" \
+    LD_PRELOAD="/usr/local/lib/libjemalloc.so"
+
+# Build deps for native gems
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+    --mount=type=cache,target=/var/lib/apt,sharing=locked \
+    apt-get update -qq && \
+    apt-get install --no-install-recommends -y \
+      build-essential=12.12 \
+      git=1:2.47.3-0+deb13u1 \
+      libyaml-dev=0.2.5-2 \
+      pkg-config=1.8.1-4 && \
+    rm -rf /var/lib/apt/lists/*
+
+# Only inputs that should invalidate deps image:
+COPY vendor/* ./vendor/
+COPY Gemfile Gemfile.lock ./
+
+RUN bundle config set path "${BUNDLE_PATH}"
+
+RUN --mount=type=cache,target=/root/.bundle/cache,sharing=locked \
+    bundle install && \
+    rm -rf "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git && \
+    bundle exec bootsnap precompile -j 1 --gemfile

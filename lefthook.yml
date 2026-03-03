@@ -56,8 +56,12 @@ pre-commit:
       run: npx --no-install stylelint -f verbose --fix {all_files}
 
     docker-lint:
-      glob: "Dockerfile"
-      run: docker run --rm -i hadolint/hadolint < {all_files}
+      glob: "**/Dockerfile*"
+      run: |
+        for file in {all_files}; do
+          echo "Linting $file"
+          docker run --rm -i hadolint/hadolint < "$file"
+        done
 
     erb-lint:
       glob: "*.{erb}"

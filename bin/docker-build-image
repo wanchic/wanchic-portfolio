@@ -11,17 +11,14 @@ if [[ -z "${CI:-}" && -f .env ]]; then
   set +a
 fi
 
-DOCKER_RUBY_VERSION="$(tr -d '[:space:]' < .ruby-version | sed 's/^ruby-//')"
-
-DOCKER_APP_VERSION="$(
-  sed -nE 's/.*VERSION[[:space:]]*=[[:space:]]*["'\'']([^"'\'']+)["'\''].*/\1/p' \
-  config/initializers/version.rb | head -n1
-)"
-
-if [[ -z "$DOCKER_APP_VERSION" ]]; then
-  echo "ERROR: Could not extract VERSION from config/initializers/version.rb" >&2
-  exit 1
+if [[ -z "${CI:-}" ]]; then
+  bin/docker-build-deps
 fi
+
+DOCKER_RUBY_VERSION="${DOCKER_APP_VERSION:-$(bin/ruby-version)}"
+
+DOCKER_APP_VERSION="${DOCKER_APP_VERSION:-}"
+DOCKER_APP_VERSION="${DOCKER_APP_VERSION:-$(bin/app-version)}"
 
 DOCKER_BUILD_DATE="$(date +%Y-%m-%d)"
 LOG_FILE="./log/docker/build-${DOCKER_APP_VERSION}-$(date +%y-%m%d-%H%M).log"
@@ -30,12 +27,15 @@ LOG_FILE="./log/docker/build-${DOCKER_APP_VERSION}-$(date +%y-%m%d-%H%M).log"
 IMAGE_NAME="${DOCKER_IMAGE:-wanchic/wanchic-portfolio}"
 PLATFORMS="${DOCKER_PLATFORMS:-linux/amd64,linux/arm64}"
 
+DOCKER_DEPS_IMAGE="${DOCKER_DEPS_IMAGE:-${IMAGE_NAME}:deps}"
+
 # If you want "latest" only sometimes (e.g. only on main), CI can set this.
 PUSH_LATEST="${PUSH_LATEST:-true}"
 
 # Optional: use a specific buildx builder if provided (local convenience).
 # In GitHub Actions, you typically *don't* set this so it uses the builder from setup-buildx-action.
 BUILDER_NAME="${DOCKER_BUILDER:-}"
+
 
 echo "RUBY_VERSION=$DOCKER_RUBY_VERSION"
 echo "APP_VERSION=$DOCKER_APP_VERSION"
@@ -85,6 +85,18 @@ done
 
 (IFS=,; echo "BUILDER_ARGS=${BUILDER_VALUES[*]}")
 
+BUILD_ARGS=()
+if [[ -n "$DOCKER_DEPS_IMAGE" ]]; then
+  BUILD_ARGS+=( --build-arg DEPS_IMAGE="$DOCKER_DEPS_IMAGE" )
+fi
+
+BUILD_VALUES=()
+for ((i=0; i<${#BUILD_ARGS[@]}; i+=2)); do
+  BUILD_VALUES+=(" ${BUILD_ARGS[i]} ${BUILD_ARGS[i+1]}")
+done
+
+(IFS=,; echo "BUILD_ARGS=${BUILD_VALUES[*]}")
+
 # Optional build cache (great for GitHub Actions)
 CACHE_ARGS=()
 
@@ -112,7 +124,9 @@ done
 
 (IFS=,; echo "CACHE_ARGS=${CACHE_ARGS_VALUES[*]}")
 
-docker login
+if [[ -z "${CI:-}" ]]; then
+  docker login
+fi
 
 DOCKER_BUILDKIT=1 docker buildx build \
   "${BUILDER_ARGS[@]}" \
@@ -121,6 +135,7 @@ DOCKER_BUILDKIT=1 docker buildx build \
   --build-arg RUBY_VERSION="$DOCKER_RUBY_VERSION" \
   --build-arg APP_VERSION="$DOCKER_APP_VERSION" \
   --build-arg BUILD_DATE="$DOCKER_BUILD_DATE" \
+  "${BUILD_ARGS[@]}" \
   "${TAGS[@]}" \
   --push \
   --progress=plain . 2>&1 | tee "$LOG_FILE"

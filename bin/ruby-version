@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+version="$(tr -d '[:space:]' < .ruby-version | sed 's/^ruby-//')"
+
+if [[ -z "$version" ]]; then
+  echo "ERROR: Could not extract VERSION from .ruby-version" >&2
+  exit 1
+fi
+
+printf '%s\n' "$version"
