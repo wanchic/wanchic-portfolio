@@ -1,0 +1,43 @@
+!!!
+%html{ lang: "en" }
+  %head
+    %meta{ content: "text/html; charset=UTF-8", "http-equiv": "Content-Type" }/
+    %title= content_for(:title) || "Wanchic Portfolio"
+    %meta{ charset: "utf-8" }/
+    %meta{ content: "width=device-width,initial-scale=1", name: "viewport" }/
+    %meta{
+      content: "Staff / Principal • Full-Stack Engineer • DevOps Engineer resume: " \
+        "AWS, Linux, CI/CD, Docker, Terraform, monitoring, security.",
+      name: "description"
+    }/
+    %meta{ content: "index,follow", name: "robots" }/
+    %meta{ content: "yes", name: "apple-mobile-web-app-capable" }/
+    %meta{ content: "Wanchic Portfolio", name: "application-name" }/
+    %meta{ content: "yes", name: "mobile-web-app-capable" }/
+
+    / Open Graph
+    %meta{ content: "Eric Wanchic — Staff / Principal • Full-Stack Engineer • DevOps Engineer", property: "og:title" }/
+    %meta{ content: "Resume + projects + contact.", property: "og:description" }/
+    %meta{ content: "website", property: "og:type" }/
+    %meta{ content: "https://eric.wanchic.com/", property: "og:url" }/
+
+    = csrf_meta_tags
+    = csp_meta_tag
+
+    = render partial: "layouts/application_data"
+
+    = yield :head
+
+    / Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!)
+    / = tag.link rel: "manifest", href: pwa_manifest_path(format: :json)
+
+    %link{ href: "/icon.png", rel: "icon", type: "image/png" }/
+    %link{ href: "/icon.svg", rel: "icon", type: "image/svg+xml" }/
+    %link{ href: "/icon.png", rel: "apple-touch-icon" }/
+
+    / Includes all stylesheet files in app/assets/stylesheets
+    = stylesheet_link_tag :app, "data-turbo-track": "reload"
+    = javascript_importmap_tags
+
+  %body{ itemscope: "", itemtype: "https://schema.org/Person" }
+    = yield

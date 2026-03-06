@@ -40,6 +40,8 @@ gem "thruster", require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem "image_processing", "~> 1.2"
 
+gem "haml-rails", "3.0.0"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
@@ -50,11 +52,14 @@ group :development, :test do
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
   gem "brakeman", "8.0.4", require: false
 
+  gem "haml_lint", require: false
+
   gem "rubocop-rails-omakase", require: false   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
 end
 
 group :development do
   gem "erb_lint", require: false
+  gem "html2haml", require: false
   gem "html-proofer", require: false
   gem "lefthook", require: false
   gem "mdl", require: false

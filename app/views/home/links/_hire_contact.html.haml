@@ -1,0 +1,36 @@
+.cta.social-icons
+  = render partial: 'home/links/btn_primary',
+   locals: { ref_link: "#contact", site_label: "Hire / Contact" }
+
+  = render partial: 'home/links/btn',
+   locals: { ref_link: "tel:+17013902381", site_label: "📞 (701) 390-2381" }
+
+  = render partial: 'home/links/btn',
+   locals: { ref_link: "sms:+17013902381", site_label: "💬 Text Me" }
+
+  = render partial: 'home/links/btn',
+   locals: { ref_link: "mailto:ewanchic@gmail.com", site_label: "✉️ ewanchic@gmail.com" }
+
+  = render partial: 'home/links/btn',
+   locals: { ref_link: "https://www.linkedin.com/in/wanchic",
+    aria_label: "LinkedIn",
+    site_icon: "linkedin",
+    site_label: "LinkedIn" }
+
+  = render partial: 'home/links/btn',
+   locals: { ref_link: "https://github.com/wanchic",
+    aria_label: "GitHub",
+    site_icon: "github",
+    site_label: "GitHub" }
+
+  = render partial: 'home/links/btn',
+   locals: { ref_link: "https://stackoverflow.com/users/1257980/eric-wanchic",
+    aria_label: "Stack Overflow",
+    site_icon: "stackoverflow",
+    site_label: "Stack Overflow" }
+
+  = render partial: 'home/links/btn',
+   locals: { ref_link: "https://dev.to/wanchic",
+    aria_label: "dev.to",
+    site_icon: "dev_to",
+    site_label: "Dev.to" }

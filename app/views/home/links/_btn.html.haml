@@ -1,0 +1,11 @@
+%a.btn{ href: ref_link, target: "_blank", rel: "noreferrer",
+ "aria-label" => "#{aria_label if local_assigns[:aria_label].present?}" }
+  = render "home/site_icons/#{site_icon}" if local_assigns[:site_icon].present?
+
+  - if local_assigns[:site_highlight].present?
+    %span.site= site_highlight
+
+  = site_label
+
+  - if local_assigns[:site_service].present?
+    %span.service= site_service
