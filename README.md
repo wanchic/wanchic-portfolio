@@ -21,10 +21,12 @@
 
 <td valign="top">
 
+![Coverage](coverage/badge.svg)
 <img src="https://github.com/wanchic/wanchic-portfolio/actions/workflows/ci_audit_gems.yml/badge.svg"><br>
 <img src="https://github.com/wanchic/wanchic-portfolio/actions/workflows/ci_audit_js.yml/badge.svg"><br>
 <img src="https://github.com/wanchic/wanchic-portfolio/actions/workflows/ci_audit_ruby.yml/badge.svg"><br>
 <img src="https://github.com/wanchic/wanchic-portfolio/actions/workflows/ci_code_test.yml/badge.svg"><br>
+<img src="https://github.com/wanchic/wanchic-portfolio/actions/workflows/ci_rspec_test.yml/badge.svg"><br>
 <img src="https://github.com/wanchic/wanchic-portfolio/actions/workflows/ci_system_test.yml/badge.svg"><br>
 
 </td>
@@ -71,7 +73,7 @@
 * [Azure VM (arm64) - _azure.wanchic.net_](https://azure.wanchic.net)
 * [Google VM (x86) - _google.wanchic.net_](https://google.wanchic.net)
 
-### With Cloudflare WAF - _*.wanchic.com_
+### Without Cloudflare WAF - _*.wanchic.com_
 
 * [AWS EC2 (x86) - _aws.wanchic.com_](https://aws.wanchic.com)
 * [Azure VM (arm64) - _azure.wanchic.com_](https://azure.wanchic.)

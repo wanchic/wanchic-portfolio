@@ -110,5 +110,8 @@ pre-commit:
     code-test:
       run: bin/rails db:test:prepare && bin/rails test
 
+    rspec-test:
+      run: rspec
+
     system-test:
       run: bin/rails db:test:prepare && bin/rails test:system
