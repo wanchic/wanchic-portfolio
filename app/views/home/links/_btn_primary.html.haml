@@ -1,0 +1,5 @@
+%a.btn.primary{ href: ref_link,
+ "aria-label" => "#{aria_label if local_assigns[:aria_label].present?}" }
+  = render "home/site_icons/#{site_icon}" if local_assigns[:site_icon].present?
+  %strong= "#{sanitize(site_label)}&nbsp;&nbsp;→".html_safe
+  = "<i>updated #{updated_on}</i>".html_safe if local_assigns[:updated_on].present?

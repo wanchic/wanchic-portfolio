@@ -1,0 +1,27 @@
+.cta.social-icons
+  = render partial: 'home/links/btn_primary',
+   locals: { ref_link: "#app_portfolio", site_label: "Cloud Portfolios" }
+
+  = render partial: 'home/links/btn',
+   locals: { ref_link: "https://aws.wanchic.com",
+    aria_label: "AWS",
+    site_icon: "aws",
+    site_highlight: "aws",
+    site_label: ".wanchic.com",
+    site_service: "EC2" }
+
+  = render partial: 'home/links/btn',
+  locals: { ref_link: "https://azure.wanchic.com",
+    aria_label: "Azure",
+    site_icon: "azure",
+    site_highlight: "azure",
+    site_label: ".wanchic.com",
+    site_service: "VM" }
+
+  = render partial: 'home/links/btn',
+  locals: { ref_link: "https://google.wanchic.com",
+    aria_label: "Google",
+    site_icon: "google",
+    site_highlight: "google",
+    site_label: ".wanchic.com",
+    site_service: "VM" }

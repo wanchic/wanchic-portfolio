@@ -1,0 +1,29 @@
+.cta.social-icons.div-cloudflare
+  = render partial: 'home/links/btn_primary',
+   locals: { ref_link: "#cloudflare_portfolio",
+    site_icon: "cloudflare",
+    site_label: "Cloudflare Portfolios" }
+
+  = render partial: 'home/links/btn',
+   locals: { ref_link: "https://aws.wanchic.net",
+    aria_label: "AWS",
+    site_icon: "aws",
+    site_highlight: "aws",
+    site_label: ".wanchic.net",
+    site_service: "EC2" }
+
+  = render partial: 'home/links/btn',
+  locals: { ref_link: "https://azure.wanchic.net",
+    aria_label: "Azure",
+    site_icon: "azure",
+    site_highlight: "azure",
+    site_label: ".wanchic.net",
+    site_service: "VM" }
+
+  = render partial: 'home/links/btn',
+  locals: { ref_link: "https://google.wanchic.net",
+    aria_label: "Google",
+    site_icon: "google",
+    site_highlight: "google",
+    site_label: ".wanchic.net",
+    site_service: "VM" }

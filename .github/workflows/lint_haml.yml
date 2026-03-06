@@ -1,0 +1,33 @@
+name: 🧹 HAML (haml-lint)
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  rubocop:
+    runs-on: ubuntu-latest
+
+    env:
+      RUBOCOP_CACHE_ROOT: tmp/rubocop
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: true
+
+      - name: Run HAML Lint
+        run: |
+          files=$(git ls-files '*.haml' ':!:vendor/**')
+          if [ -n "$files" ]; then
+            bundle exec haml-lint $files
+          else
+            echo "No HAML files found."
+          fi

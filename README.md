@@ -35,6 +35,7 @@
 <img src="https://github.com/wanchic/wanchic-portfolio/actions/workflows/lint_css_sass.yml/badge.svg"><br>
 <img src="https://github.com/wanchic/wanchic-portfolio/actions/workflows/lint_docker.yml/badge.svg"><br>
 <img src="https://github.com/wanchic/wanchic-portfolio/actions/workflows/lint_erb.yml/badge.svg"><br>
+<img src="https://github.com/wanchic/wanchic-portfolio/actions/workflows/lint_haml.yml/badge.svg"><br>
 <img src="https://github.com/wanchic/wanchic-portfolio/actions/workflows/lint_html.yml/badge.svg"><br>
 <img src="https://github.com/wanchic/wanchic-portfolio/actions/workflows/lint_js.yml/badge.svg"><br>
 <img src="https://github.com/wanchic/wanchic-portfolio/actions/workflows/lint_json.yml/badge.svg"><br>
