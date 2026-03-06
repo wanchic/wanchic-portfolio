@@ -22,8 +22,8 @@ jobs:
         with:
           bundler-cache: true
 
-      - name: Install ImageMagick
-        run: sudo apt-get update && sudo apt-get install -y imagemagick
+#      - name: Install ImageMagick
+#        run: sudo apt-get update && sudo apt-get install -y imagemagick
 
       - name: Set up database
         run: |
@@ -39,10 +39,10 @@ jobs:
           name: coverage-report
           path: coverage
 
-      - name: Commit coverage badge
-        run: |
-          git config --global user.name github-actions
-          git config --global user.email github-actions@github.com
-          git add coverage/badge.svg
-          git commit -m "Update coverage badge" || echo "No changes"
-          git push
+#      - name: Commit coverage badge
+#        run: |
+#          git config --global user.name github-actions
+#          git config --global user.email github-actions@github.com
+#          git add coverage/badge.svg
+#          git commit -m "Update coverage badge" || echo "No changes"
+#          git push
