@@ -51,13 +51,13 @@ group :development, :test do
 
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
-  gem 'factory_bot_rails'
-  gem 'faker', require: false
+  gem "factory_bot_rails"
+  gem "faker", require: false
   gem "haml_lint", require: false
-  gem 'pry'
+  gem "pry"
   gem "rspec-rails"
   gem "rubocop-rails-omakase", require: false   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
-  gem 'shoulda-matchers'
+  gem "shoulda-matchers"
 end
 
 group :development do
@@ -73,7 +73,7 @@ end
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
-  #gem 'database_cleaner-active_record'
+  # gem 'database_cleaner-active_record'
   gem "selenium-webdriver"
   gem "simplecov", require: false
   gem "simplecov-badge", require: false
