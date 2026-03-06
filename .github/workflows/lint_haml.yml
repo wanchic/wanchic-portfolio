@@ -24,4 +24,8 @@ jobs:
           bundler-cache: true
 
       - name: Run HAML Lint
-        run: bundle exec haml-lint .
+        run: |
+          files=$(git ls-files '*.md' ':!:vendor/**')
+          if [ -n "$files" ]; then
+            bundle exec haml-lint $files
+          fi
