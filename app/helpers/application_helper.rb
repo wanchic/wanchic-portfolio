@@ -1,8 +1,6 @@
 module ApplicationHelper
   def div_break
-    content_tag(:div) do
-      "<br>".html_safe
-    end
+    content_tag(:div, tag.br)
   end
 
   def app_versions_footer
@@ -24,6 +22,8 @@ module ApplicationHelper
   end
 
   def ruby_version
-    "#{RUBY_VERSION}#{"p#{RUBY_PATCHLEVEL}" unless RUBY_PATCHLEVEL.zero?}"
+    return RUBY_VERSION if RUBY_PATCHLEVEL.zero?
+
+    "#{RUBY_VERSION}p#{RUBY_PATCHLEVEL}"
   end
 end

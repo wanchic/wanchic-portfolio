@@ -91,7 +91,7 @@ pre-commit:
       run: bundle exec mdl {all_files}
 
     ruby-lint:
-      glob: "*.rb"
+      glob: "{*.rb,Gemfile}"
       run: bundle exec rubocop -a --parallel --force-exclusion {all_files}
 
     yaml-lint:
@@ -109,6 +109,9 @@ pre-commit:
 
     code-test:
       run: bin/rails db:test:prepare && bin/rails test
+
+    rspec-test:
+      run: rspec
 
     system-test:
       run: bin/rails db:test:prepare && bin/rails test:system

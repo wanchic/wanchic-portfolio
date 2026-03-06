@@ -63,3 +63,5 @@
 # Ignore key files for decrypting credentials and more.
 /config/credentials/*.key
 
+# simplecov artifacts
+coverage/*

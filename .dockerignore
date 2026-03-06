@@ -23,6 +23,11 @@
 
 # Rspec Tests & Coverage
 /test
+/spec
+.rspec
+
+# simplecov artifacts
+/coverage
 
 # Linting
 /.rspec
@@ -30,6 +35,8 @@
 /.rubocop.yml
 /.stylelintrc.json
 /.yamllint.yml
+/.erb_lint.yml
+/.haml-lint.yml
 /eslint.config.mjs
 /md_styles.rb
 

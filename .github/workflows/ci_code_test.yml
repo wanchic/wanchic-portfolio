@@ -1,4 +1,4 @@
-name: 🧪 Code Test (test unit)
+name: 🧪 Code Test (minitest)
 
 on:
   pull_request:
