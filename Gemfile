@@ -58,6 +58,7 @@ group :development, :test do
   gem "rspec-rails"
   gem "rubocop-rails-omakase", require: false   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "shoulda-matchers"
+  # gem "undercover", require: false
 end
 
 group :development do
@@ -77,5 +78,4 @@ group :test do
   gem "selenium-webdriver"
   gem "simplecov", require: false
   gem "simplecov-badge", require: false
-  gem "undercover", require: false
 end
