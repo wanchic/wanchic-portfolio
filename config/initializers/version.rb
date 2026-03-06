@@ -2,6 +2,6 @@
 
 module WanchicPortfolio
   class Application
-    VERSION = "26.305.2100c"
+    VERSION = "26.305.2137c"
   end
 end
