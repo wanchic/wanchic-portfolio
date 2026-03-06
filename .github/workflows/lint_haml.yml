@@ -25,7 +25,9 @@ jobs:
 
       - name: Run HAML Lint
         run: |
-          files=$(git ls-files '*.md' ':!:vendor/**')
+          files=$(git ls-files '*.haml' ':!:vendor/**')
           if [ -n "$files" ]; then
             bundle exec haml-lint $files
+          else
+            echo "No HAML files found."
           fi
