@@ -29,10 +29,10 @@ SimpleCov.start "rails" do
   minimum_coverage_by_file 80
 end
 
-SimpleCov.at_exit do
-  SimpleCov::Formatter::HTMLFormatter.new.format(SimpleCov.result)
-  SimpleCov::Formatter::BadgeFormatter.new.format(SimpleCov.result)
-end
+# SimpleCov.at_exit do
+#   SimpleCov::Formatter::HTMLFormatter.new.format(SimpleCov.result)
+#   SimpleCov::Formatter::BadgeFormatter.new.format(SimpleCov.result)
+# end
 
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
