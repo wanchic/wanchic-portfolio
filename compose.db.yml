@@ -1,0 +1,19 @@
+services:
+  postgres:
+    image: postgres:18.3
+    profiles: ["dbs", "full-image", "full-build", "full-image-pro", "full-build-pro"]
+    volumes:
+      - ${DOCKER_VOLUMES_ROOT}/${DOCKER_PG_VOLUME}:/var/lib/postgresql
+    environment:
+      POSTGRES_USER: ${DOCKER_PG_USER}
+      POSTGRES_PASSWORD: ${DOCKER_PG_PASSWORD}
+      POSTGRES_DB: ${DOCKER_PG_DATABASE}
+      PGPORT: ${DOCKER_PG_PORT}
+    ports:
+      - ${DOCKER_PG_PORT}:${DOCKER_PG_PORT}
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: "bridge"

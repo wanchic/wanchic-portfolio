@@ -21,7 +21,6 @@
 
 <td valign="top">
 
-![Coverage](coverage/badge.svg)
 <img src="https://github.com/wanchic/wanchic-portfolio/actions/workflows/ci_audit_gems.yml/badge.svg"><br>
 <img src="https://github.com/wanchic/wanchic-portfolio/actions/workflows/ci_audit_js.yml/badge.svg"><br>
 <img src="https://github.com/wanchic/wanchic-portfolio/actions/workflows/ci_audit_ruby.yml/badge.svg"><br>
@@ -109,4 +108,72 @@
 
   ```bash
   npm install
+  ```
+
+## Define Application Settings
+
+### Set the Local Environment Variables
+
+* Clone & rename the `.env*` template files as individual `.env` files.
+    * `.env-template` →  `.env`
+    * `.env.development.local-template` →  `.env.development.local`
+    * `.env.test.local-template` →  `.env.test.local`
+    * `.env.production.local-template` →  `.env.production.local`
+
+* Review `.env` and replace the environment variables with the correct settings.
+* The `Docker Server` section of environment variables can be ignored.
+  To setup a Docker instance, see [Docker Server - README-Docker](README-Docker.md)
+* Fill out `Database Info` for PostgreSQL. Ignore that these variables
+  are prefixed with `DOCKER_`.
+
+### Access Rails Credentials and Set the 3rd Party Variables
+
+* Create you own local development file via command:
+
+  ```bash
+  EDITOR=vim rails credentials:edit --environment development
+  ```
+
+  ```bash
+  EDITOR=vim rails credentials:edit --environment test
+  ```
+
+  ```bash
+  EDITOR=vim rails credentials:edit --environment production
+  ```
+
+* Every credential should contain it's own unique `secret_key_base:`
+* Transfer the key information, created by each `[environment].key`
+  to each `.env.[environment].local` for `RAILS_MASTER_KEY=`
+
+## Databases
+
+### Purge _(needed if already present)_
+
+* Remove the development database
+
+  ```bash
+  rails db:drop
+  ```
+
+* Remove the production database
+
+  ```bash
+  RAILS_ENV=production rails db:drop
+  ```
+
+### Create & Prepare
+
+* Create & Prepare the development database
+
+  ```bash
+  rails db:create
+  rails db:prepare
+  ```
+
+* Create the production database
+
+  ```bash
+  RAILS_ENV=production rails db:create
+  RAILS_ENV=production rails db:prepare
   ```
