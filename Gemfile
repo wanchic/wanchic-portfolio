@@ -68,7 +68,7 @@ group :development do
   gem "erb_lint", require: false
   gem "html2haml", require: false
   gem "html-proofer", require: false
-  gem "lefthook", "2.1.2", require: false
+  gem "lefthook", "2.1.3", require: false
   gem "mdl", require: false
   gem "scss_lint", require: false
   gem "web-console", "4.3.0" # Use console on exceptions pages [https://github.com/rails/web-console]
