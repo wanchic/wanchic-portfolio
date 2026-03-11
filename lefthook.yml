@@ -43,6 +43,14 @@
 
 pre-commit:
   parallel: true
+
+  exclude:
+    - "coverage/**"
+    - "log/**"
+    - "node_modules/**"
+    - "tmp/**"
+    - "vendor/**"
+
   commands:
     bash-lint:
       glob:
@@ -107,11 +115,5 @@ pre-commit:
     ruby-audit:
       run: bin/brakeman --no-pager
 
-    code-test:
-      run: bin/rails db:test:prepare && bin/rails test
-
     rspec-test:
       run: rspec
-
-    system-test:
-      run: bin/rails db:test:prepare && bin/rails test:system

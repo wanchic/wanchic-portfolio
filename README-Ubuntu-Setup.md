@@ -20,6 +20,36 @@
                   ca-certificates apt-transport-https lsb-release
   ```
 
+## Database Server(s)
+
+### PostgreSQL
+
+* Install PostgreSQL common & prerequisites
+
+  ```bash
+  apt-get install postgresql-common libpq-dev
+  ```
+
+* Download and Install PostgreSQL repo
+
+  ```bash
+  /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh
+  ./usr/share/postgresql-common/pgdg/apt.postgresql.org.sh
+  ```
+
+* Update Apt sources
+
+  ```bash
+  apt-get update
+  ```
+
+* PostgreSQL can be used via the Docker Image.
+
+* Test PostgreSQL access via client Tools:
+    * [pgAdmin 4](https://www.pgadmin.org/download/)
+    * [psql (cli)](https://www.postgresql.org/docs/current/app-psql.html)
+    * [Other Clients](https://wiki.postgresql.org/wiki/PostgreSQL_Clients)
+
 ## Install Docker
 
 * Remove Old Docker Versions (if any)

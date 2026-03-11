@@ -12,6 +12,35 @@ jobs:
 
     env:
       RAILS_ENV: test
+      PG_HOST: 127.0.0.1
+      PG_PORT: 5432
+      PG_USER: postgres
+      PG_PASSWORD: postgres
+
+      # main test DB
+      PG_DATABASE_TEST: app_test
+
+      # only needed if your manual DB presence spec references these env vars
+      PG_DATABASE_DEV: app_development
+      PG_DATABASE_PRO: app_production
+      PG_DATABASE_CACHE: app_cache
+      PG_DATABASE_QUEUE: app_queue
+      PG_DATABASE_CABLE: app_cable
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: app_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U postgres -d app_test"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
 
     steps:
       - name: Checkout repository
@@ -22,8 +51,8 @@ jobs:
         with:
           bundler-cache: true
 
-#      - name: Install ImageMagick
-#        run: sudo apt-get update && sudo apt-get install -y imagemagick
+      # - name: Install ImageMagick
+      #  run: sudo apt-get update && sudo apt-get install -y imagemagick
 
       - name: Set up database
         run: |

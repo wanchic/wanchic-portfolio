@@ -21,13 +21,10 @@
 
 <td valign="top">
 
-![Coverage](coverage/badge.svg)
 <img src="https://github.com/wanchic/wanchic-portfolio/actions/workflows/ci_audit_gems.yml/badge.svg"><br>
 <img src="https://github.com/wanchic/wanchic-portfolio/actions/workflows/ci_audit_js.yml/badge.svg"><br>
 <img src="https://github.com/wanchic/wanchic-portfolio/actions/workflows/ci_audit_ruby.yml/badge.svg"><br>
 <img src="https://github.com/wanchic/wanchic-portfolio/actions/workflows/ci_rspec_test.yml/badge.svg"><br>
-<img src="https://github.com/wanchic/wanchic-portfolio/actions/workflows/ci_code_test.yml/badge.svg"><br>
-<img src="https://github.com/wanchic/wanchic-portfolio/actions/workflows/ci_system_test.yml/badge.svg"><br>
 
 </td>
 
@@ -129,6 +126,22 @@
       EDITOR="vim" bin/rails credentials:edit --environment production
       ```
 
+#### Data (Volume) Storage
+
+* Docker data is stored in the local directory at `./tmp/docker-data`.
+* This is by design so all data can be erased easily, if need be.
+* This can be modified at `DOCKER_VOLUMES_ROOT`
+* Each service that stores their data include:
+    * `DOCKER_PG_VOLUME` = postgresql
+
+#### Tools for Accessing the Databases
+
+* Each of the databases should be accessible via the
+  `user`/`password`/`port` info provided in the `.env`
+    * PostgreSQL - [pgAdmin 4](https://www.pgadmin.org/download/),
+      [psql (cli)](https://www.postgresql.org/docs/current/app-psql.html),
+      [Other Clients](https://wiki.postgresql.org/wiki/PostgreSQL_Clients)
+
 #### Running Docker Compose (from build)
 
 * Start the application:
@@ -152,11 +165,107 @@
   _Note: Image NAMES will be important for the next step_
 
   ```bash
-  CONTAINER ID   IMAGE                         COMMAND                  CREATED         STATUS         PORTS                    NAMES
-  413912da0a45   wanchic-portfolio-web_build   "/rails/bin/docker-e…"   9 seconds ago   Up 9 seconds   0.0.0.0:3034->3000/tcp   wanchic-portfolio-web_build-1
+  CONTAINER ID   IMAGE                         COMMAND                  CREATED         STATUS         PORTS                                                  NAMES
+  413912da0a45   wanchic-portfolio-web_build   "/rails/bin/docker-e…"   9 seconds ago   Up 9 seconds   0.0.0.0:3034->3000/tcp                                 wanchic-portfolio-web_build-1
+  3e30dde7c5d6   postgres:18.3                 "docker-entrypoint.s…"   3 seconds ago   Up 2 seconds   5432/tcp, 0.0.0.0:5440->5440/tcp, [::]:5440->5440/tcp  wanchic-portfolio-postgres-1
   ```
 
-#### Running Docker Compose (from an Image)
+#### Database(s) Setup
+
+* Setup Main DB on PostgreSQL `portfolio`
+
+  ```bash
+  docker exec wanchic-portfolio-web_build-1 rails db:create
+  ```
+
+## Using Docker Compose
+
+* The base of running docker compose is: `docker compose up`
+  However, the **Web App** will not launch by this alone.
+* Various profiles and flag switches will
+  need to be added in order for a successful run
+* TL;DR: To get started with the way wanchic-portfolio was intended, execute:
+
+  ```bash
+  bin/docker-build-deps
+  docker compose --profile full-build up --build --force-recreate
+  ```
+
+* Continue reading to understand how to customize docker for your needs
+
+### Selecting Profiles
+
+* It is important to select a compose profile.
+  Compose Profiles enables select services to launch.
+
+* If you want to utilize select service(s) in your local environment,
+  using certain profiles is where you customize these.
+
+* Selecting no profiles will not start any services.
+
+* The following is the current Profile Matrix of Service Profiles.
+
+  | _-- Services --_   | dbs | full-build | full-image | full-build-pro  | full-image-pro |
+  |--------------------|-----|------------|------------|-----------------|----------------|
+  | web-build  _(dev)_ |     | [x]        |            |                 |                |
+  | web-image  _(dev)_ |     |            | [x]        |                 |                |
+  | web-build-pro      |     |            |            | [x]             |                |
+  | web-image-pro      |     |            |            |                 | [x]            |
+  | postgres           | [x] | [x]        | [x]        | [x]             | [x]            |
+
+### Running a Service Profile
+
+* The first column in the Profile Matrix lists all the individual service profiles.
+
+* To bring up the `web-image` service:
+
+  ```bash
+  docker compose --profile web-image up
+  ```
+
+* To bring up the `web-image` service as a daemon:
+
+  ```bash
+  docker compose --profile web-image up -d
+  ```
+
+* To view the logs of `web-image` service:
+
+  ```bash
+  docker compose --profile web-image logs -f
+  ```
+
+* To spin down the `web-image` service:
+
+  ```bash
+  docker compose --profile web-image down
+  ```
+
+### Build vs Image
+
+* The `build` and `image` profiles are suffixed into two categories: **_-build_** and **_-image_**.
+
+### Development vs Production
+
+* `web-build` & `web-image` will both run in `development` RAILS Environment
+* `web-build-pro` & `web-image-pro` will both run in `production` RAILS Environment
+
+#### As a Build
+
+* The most simple way to build and launch a fresh image add the `--build` switch
+
+  ```bash
+  docker compose --profile full-build up -d --build
+  ```
+
+* However, you may experience times when changes in your code are not showing up.
+  To prevent this, always add a `--force-recreate` to your command
+
+  ```bash
+  docker compose --profile full-build up -d --build --force-recreate
+  ```
+
+#### As an Image
 
 * `DOCKER_IMAGE` & `DOCKER_IMAGE_VERSION` should be specified in your `.env` file.
   However, they can be overrode on commandline.
@@ -181,6 +290,23 @@
     * <http://127.0.0.1:3034>
     * <http://0.0.0.0:3034>
     * <http://localhost:3034>
+
+## Developing with Docker
+
+### Running Docker as a Build from local
+
+* Running for the 1st time, or needing to rebuild
+
+  ```bash
+  bin/docker-build-deps
+  docker compose --profile web-build up --build --force-recreate
+  ```
+
+* Running without needing to rebuild
+
+  ```bash
+  docker compose  --profile web-build up -d
+  ```
 
 ### Accessing Docker images at runtime
 

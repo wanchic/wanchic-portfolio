@@ -1,3 +1,6 @@
+include:
+  - compose.db.yml  # Database Services
+
 x-web-common: &web_common
   ports:
     - ${DOCKER_WEB_APP_PORT}:3000
@@ -5,8 +8,25 @@ x-web-common: &web_common
 x-core-common: &core_common
   networks:
     - backend
+
+x-env-development: &env_development
+  environment:
+    RAILS_ENV: development
+    RACK_ENV: development
+    NODE_ENV: development
   env_file:
     - .env
+    - .env.development.local
+
+x-env-production: &env_production
+  environment:
+    RAILS_ENV: production
+    RACK_ENV: production
+    NODE_ENV: production
+  env_file:
+    - .env
+    - .env.production.local
+
 
 x-image-common: &image_common
   image: ${DOCKER_IMAGE}:${DOCKER_IMAGE_VERSION}
@@ -18,12 +38,22 @@ x-build-common: &build_common
 
 services:
   web_image:
-    <<: [*web_common, *core_common, *image_common]
-    profiles: ["web-image"]
+    <<: [*web_common, *core_common, *env_development, *image_common]
+    profiles: ["web-image", "full-image"]
+    command: ["./bin/rails", "server", "-b", "0.0.0.0", "-p", "3000"]
+
+  web_image_pro:
+    <<: [*web_common, *core_common, *env_production, *image_common]
+    profiles: ["web-image-pro", "full-image-pro"]
 
   web_build:
-    <<: [*web_common, *core_common, *build_common]
-    profiles: ["web-build"]
+    <<: [*web_common, *core_common, *env_development, *build_common]
+    profiles: ["web-build", "full-build"]
+    command: ["./bin/rails", "server", "-b", "0.0.0.0", "-p", "3000"]
+
+  web_build_pro:
+    <<: [*web_common, *core_common, *env_production, *build_common]
+    profiles: ["web-build-pro", "full-build-pro"]
 
 networks:
   backend:
