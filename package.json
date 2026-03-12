@@ -3,9 +3,17 @@
   "private": true,
   "devDependencies": {
     "eslint": "^9.0.0",
+    "postcss": "^8.4.29",
     "stylelint": "^16.0.0",
     "stylelint-config-standard": "^36.0.0",
     "stylelint-config-standard-scss": "^13.0.0",
     "stylelint-scss": "^6.0.0"
+  },
+  "dependencies": {
+    "sass": "^1.98.0"
+  },
+  "scripts": {
+    "build:css": "sass ./app/assets/stylesheets/application.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules",
+    "watch:css": "sass --watch ./app/assets/stylesheets/application.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules"
   }
 }

@@ -35,9 +35,30 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
       pkg-config=1.8.1-4 && \
     rm -rf /var/lib/apt/lists/*
 
+# Define Node.js version and install
+ENV NODE_VERSION="24.x" \
+    NODE_PKG="24.14.0-1nodesource1" \
+    SCRIPTS_HOME=/scripts
+
+COPY bin/docker-node-setup $SCRIPTS_HOME/node-setup
+
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+    --mount=type=cache,target=/var/lib/apt,sharing=locked \
+    set -eux; \
+    chmod +x "$SCRIPTS_HOME/node-setup" && \
+    bash "$SCRIPTS_HOME/node-setup" && \
+    apt-get install -y --no-install-recommends \
+      nodejs="$NODE_PKG" && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* "$SCRIPTS_HOME"
+
 # Only inputs that should invalidate deps image:
 COPY vendor/* ./vendor/
 COPY Gemfile Gemfile.lock ./
+COPY package.json package-lock.json ./
+
+RUN --mount=type=cache,target=/root/.npm,sharing=locked \
+    npm ci
 
 RUN bundle config set path "${BUNDLE_PATH}"
 

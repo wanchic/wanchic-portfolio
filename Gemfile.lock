@@ -125,6 +125,8 @@ GEM
       fiber-local (~> 1.1)
       json
     crass (1.0.6)
+    cssbundling-rails (1.4.0)
+      railties (>= 6.0.0)
     date (3.5.1)
     debug (1.11.1)
       irb (~> 1.10)
@@ -545,6 +547,7 @@ DEPENDENCIES
   brakeman (= 8.0.4)
   bundler-audit
   capybara
+  cssbundling-rails (= 1.4)
   debug
   dotenv-rails (= 3.2.0)
   erb_lint
@@ -616,6 +619,7 @@ CHECKSUMS
   connection_pool (3.0.2) sha256=33fff5ba71a12d2aa26cb72b1db8bba2a1a01823559fb01d29eb74c286e62e0a
   console (1.34.3) sha256=869fbd74697efc4c606f102d2812b0b008e4e7fd738a91c591e8577140ec0dcc
   crass (1.0.6) sha256=dc516022a56e7b3b156099abc81b6d2b08ea1ed12676ac7a5657617f012bd45d
+  cssbundling-rails (1.4.0) sha256=082034653af0ec53d7662e4cd2f518f36167fe7c014dbcf37a941a4a8324f7db
   date (3.5.1) sha256=750d06384d7b9c15d562c76291407d89e368dda4d4fff957eb94962d325a0dc0
   debug (1.11.1) sha256=2e0b0ac6119f2207a6f8ac7d4a73ca8eb4e440f64da0a3136c30343146e952b6
   diff-lcs (1.6.2) sha256=9ae0d2cba7d4df3075fe8cd8602a8604993efc0dfa934cff568969efb1909962
