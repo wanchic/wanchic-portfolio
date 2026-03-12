@@ -1,0 +1,23 @@
+.muted {
+  color: var(--muted);
+}
+
+.mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+.hr {
+  height: 1px;
+  background: var(--border);
+  margin: 12px 0;
+}
+
+.tip {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.contact-note {
+  margin-top: 10px;
+  color: var(--muted);
+}

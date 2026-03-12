@@ -1,0 +1,26 @@
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.chip {
+  font-variant: small-caps;
+  padding: 10px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgb(255 255 255 / 3%);
+  font-weight: 500;
+}
+
+.chip:hover {
+  background: rgb(64 111 143 / 45%);
+  text-decoration: none;
+}
+
+@media (width <= 880px) {
+  .nav {
+    justify-content: flex-start;
+  }
+}

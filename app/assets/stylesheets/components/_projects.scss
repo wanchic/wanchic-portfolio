@@ -1,0 +1,28 @@
+.proj {
+  display: grid;
+  gap: 10px;
+  padding: 14px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: rgb(0 0 0 / 15%);
+}
+
+.proj + .proj {
+  margin-top: 12px;
+}
+
+.proj-spaced {
+  margin-top: 12px;
+}
+
+.projtop {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.projname {
+  font-weight: 750;
+}

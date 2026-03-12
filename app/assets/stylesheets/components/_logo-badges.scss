@@ -1,0 +1,42 @@
+/* Glass chip (soft edges, faded border) */
+.logo-badge {
+  border-radius: 9px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Dark-background readability “halo” for the logo art */
+.logo-badge svg {
+  width: 2em;
+  height: 2em;
+  filter: drop-shadow(0 1px 1px rgb(0 0 0 / 55%)) drop-shadow(0 0 3px rgb(255 255 255 / 10%));
+}
+
+.logo-badge.is-aws svg {
+  width: 2.2em;
+  height: 2.2em;
+}
+
+.logo-badge.is-azure svg {
+  width: 2em;
+  height: 2em;
+}
+
+/* Extra help for AWS + Google specifically */
+.logo-badge.is-aws svg,
+.logo-badge.is-google svg {
+  filter: drop-shadow(0 1px 1px rgb(0 0 0 / 65%)) drop-shadow(0 0 4px rgb(255 255 255 / 18%));
+}
+
+.logo-badge.is-google svg * {
+  width: 1.6em;
+  height: 1.6em;
+  stroke: rgb(255 255 255 / 22%);
+  stroke-width: 0.6;
+  vector-effect: non-scaling-stroke;
+}
+
+.logo-badge.is-cloudflare svg {
+  filter: drop-shadow(0 1px 2px rgb(0 0 0 / 60%)) drop-shadow(0 0 4px rgb(255 255 255 / 12%));
+}

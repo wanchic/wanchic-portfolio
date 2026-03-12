@@ -1,0 +1,13 @@
+.pill {
+  font-size: 13px;
+  padding: 7px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgb(255 255 255 / 3%);
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.pill a {
+  text-decoration: none;
+}

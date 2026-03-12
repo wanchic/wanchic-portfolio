@@ -1,0 +1,24 @@
+.kicker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.kicker-block {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+  padding: 14px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+}
+
+.kicker-block h3 {
+  margin: 0 0 5px;
+  font-size: 18px;
+  font-variant: small-caps;
+  flex-basis: 100%;
+}
