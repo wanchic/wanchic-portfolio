@@ -36,7 +36,7 @@
     %link{ href: "/icon.png", rel: "apple-touch-icon" }/
 
     / Includes all stylesheet files in app/assets/stylesheets
-    = stylesheet_link_tag :app, "data-turbo-track": "reload"
+    = stylesheet_link_tag :app, "other", "styles", "data-turbo-track": "reload"
     = javascript_importmap_tags
 
   %body{ itemscope: "", itemtype: "https://schema.org/Person" }
