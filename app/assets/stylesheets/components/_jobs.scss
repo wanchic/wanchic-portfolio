@@ -1,0 +1,36 @@
+.job {
+  padding: 14px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+}
+
+.job + .job {
+  margin-top: 12px;
+}
+
+.job-spaced {
+  margin-top: 12px;
+}
+
+.jobhead {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.jobtitle {
+  font-weight: 700;
+}
+
+.jobcompany {
+  font-variant: small-caps;
+  white-space: nowrap;
+}
+
+.jobmeta {
+  color: var(--muted);
+  font-size: 13px;
+}

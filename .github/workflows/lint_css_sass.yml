@@ -24,4 +24,7 @@ jobs:
         run: npm ci
 
       - name: Run Stylelint
-        run: npx stylelint "**/*.{css,scss,sass}"
+        run: npx stylelint -f verbose "**/*.{css,scss,sass}"
+
+      - name: Run Prettier
+        run: npx prettier "**/*.{css,scss}"

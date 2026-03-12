@@ -61,7 +61,11 @@ pre-commit:
 
     css-lint:
       glob: "*.{css,scss,sass}"
-      run: npx --no-install stylelint -f verbose --fix {all_files}
+      run: npx --no-install stylelint -f verbose {all_files}
+
+    css-prettier:
+      glob: "*.{css,scss}"
+      run: npx prettier {all_files}
 
     docker-lint:
       glob: "Dockerfile*"

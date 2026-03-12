@@ -1,0 +1,54 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: rgb(255 255 255 / 4%);
+  color: var(--text);
+  text-decoration: none;
+}
+
+.btn strong {
+  font-weight: 650;
+}
+
+.btn.primary {
+  background: linear-gradient(135deg, rgb(116 192 252 / 22%), rgb(177 151 252 / 18%));
+  border-color: rgb(116 192 252 / 35%);
+}
+
+.btn:hover {
+  background: rgb(255 255 255 / 7%);
+  text-decoration: none;
+}
+
+.btn .site {
+  font-size: 1.15em;
+  font-weight: 650;
+  margin-right: -0.2em;
+}
+
+.btn .service {
+  color: var(--muted);
+  font-size: 0.92em;
+  font-weight: 600;
+  margin-left: 0;
+  font-style: italic;
+}
+
+.div-cloudflare .btn {
+  border: 1px solid var(--border-cloudflare);
+  background: rgb(253 92 0 / 8%);
+}
+
+.div-cloudflare .btn.primary {
+  background: linear-gradient(135deg, rgb(116 192 252 / 22%), rgb(252 202 151 / 18%));
+  border-color: rgb(108 76 54);
+}
+
+.div-cloudflare .btn:hover {
+  background: rgb(253 92 0 / 16%);
+  text-decoration: none;
+}

@@ -1,8 +1,7 @@
 // Entry point for your Sass build
 
-// @use "base";
-// @use "components";
-// @use "layout";
+@use "base";
+@use "components";
+@use "layout";
 @use "pages";
-
-// @use "utilities";
+@use "utilities";
