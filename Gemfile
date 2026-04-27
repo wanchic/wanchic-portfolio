@@ -32,11 +32,11 @@ gem "solid_cable"
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 
-gem "cssbundling-rails", "1.4"
+gem "cssbundling-rails", "1.4.3"
 gem "dotenv-rails", "3.2.0"
 
 # Deploy this application anywhere as a Docker container [https://kamal-deploy.org]
-gem "kamal", require: false
+gem "kamal", "2.11.0", require: false
 
 # Add HTTP asset caching/compression and X-Sendfile acceleration to Puma [https://github.com/basecamp/thruster/]
 gem "thruster", require: false
@@ -45,6 +45,8 @@ gem "thruster", require: false
 gem "image_processing", "~> 1.2"
 
 gem "haml-rails", "3.0.0"
+
+gem "rdoc", "7.0.3"
 
 # BetterStack
 gem "sentry-ruby"
@@ -61,9 +63,9 @@ group :development, :test do
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
   gem "factory_bot_rails"
   gem "faker", require: false
-  gem "haml_lint", require: false
-  gem "pry"
-  gem "rspec-rails"
+  gem "haml_lint", "0.73.0", require: false
+  gem "pry", "0.16.0"
+  gem "rspec-rails", "8.0.4"
   gem "rubocop-rails-omakase", require: false   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "shoulda-matchers"
   # gem "undercover", require: false
@@ -73,7 +75,7 @@ group :development do
   gem "erb_lint", require: false
   gem "html2haml", require: false
   gem "html-proofer", require: false
-  gem "lefthook", "2.1.2", require: false
+  gem "lefthook", "2.1.5", require: false
   gem "mdl", require: false
   gem "scss_lint", require: false
   gem "web-console", "4.3.0" # Use console on exceptions pages [https://github.com/rails/web-console]
