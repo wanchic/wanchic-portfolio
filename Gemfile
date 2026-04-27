@@ -46,6 +46,10 @@ gem "image_processing", "~> 1.2"
 
 gem "haml-rails", "3.0.0"
 
+# BetterStack
+gem "sentry-ruby"
+gem "sentry-rails"
+
 group :development, :test do
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
   gem "brakeman", "8.0.4", require: false
