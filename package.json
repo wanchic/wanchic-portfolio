@@ -3,6 +3,7 @@
   "private": true,
   "devDependencies": {
     "@stylistic/stylelint-plugin": "^5.0.1",
+    "esbuild": "^0.28.0",
     "eslint": "^9.0.0",
     "postcss": "^8.4.29",
     "prettier": "^3.8.1",
@@ -10,9 +11,14 @@
     "stylelint-config-standard-scss": "^17.0.0"
   },
   "dependencies": {
+    "@hotwired/stimulus": "^3.2.2",
+    "@hotwired/turbo-rails": "^8.0.23",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
     "sass": "^1.98.0"
   },
   "scripts": {
+    "build": "esbuild app/javascript/*.* --bundle --sourcemap --format=esm --outdir=app/assets/builds --public-path=/assets",
     "build:css": "sass ./app/assets/stylesheets/application.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules",
     "watch:css": "sass --watch ./app/assets/stylesheets/application.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules"
   }
