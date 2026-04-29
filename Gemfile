@@ -46,7 +46,7 @@ gem "image_processing", "~> 1.2"
 
 gem "haml-rails", "3.0.0"
 
-gem "rdoc", "7.0.3"
+gem "rdoc", "7.2.0"
 
 # BetterStack
 gem "sentry-ruby"
