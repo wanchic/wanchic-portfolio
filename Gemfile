@@ -3,12 +3,13 @@ source "https://rubygems.org"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 8.1.3"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
-gem "propshaft"
+gem "propshaft", "1.3.2"
 
 gem "pg", "1.6.3"
 
 # Use the Puma web server [https://github.com/puma/puma]
-gem "puma", ">= 5.0"
+gem "puma", "8.0.1"
+
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem "importmap-rails"
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
@@ -30,7 +31,7 @@ gem "solid_queue"
 gem "solid_cable"
 
 # Reduces boot times through caching; required in config/boot.rb
-gem "bootsnap", require: false
+gem "bootsnap", "1.24.1", require: false
 
 gem "cssbundling-rails", "1.4.3"
 gem "dotenv-rails", "3.2.0"
@@ -46,7 +47,7 @@ gem "image_processing", "~> 1.2"
 
 gem "haml-rails", "3.0.0"
 
-gem "rdoc", "7.0.3"
+gem "rdoc", "7.2.0"
 
 # BetterStack
 gem "sentry-ruby"
@@ -66,7 +67,7 @@ group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
   gem "factory_bot_rails"
-  gem "faker", require: false
+  gem "faker", "3.8.0", require: false
   gem "haml_lint", "0.73.0", require: false
   gem "pry", "0.16.0"
   gem "rspec-rails", "8.0.4"
@@ -89,7 +90,7 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   # gem 'database_cleaner-active_record'
-  gem "selenium-webdriver"
+  gem "selenium-webdriver", "4.43.0"
   gem "simplecov", require: false
   gem "simplecov-badge", require: false
 end
