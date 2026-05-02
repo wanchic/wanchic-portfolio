@@ -53,6 +53,10 @@ gem "rdoc", "7.2.0"
 gem "sentry-ruby"
 gem "sentry-rails"
 
+# Install Packwerks
+gem "packwerk", group: [ :development, :test ]
+gem "packs-rails"
+
 group :development, :test do
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
   gem "brakeman", "8.0.4", require: false
