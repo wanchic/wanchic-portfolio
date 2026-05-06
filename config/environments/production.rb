@@ -3,6 +3,18 @@ require "active_support/core_ext/integer/time"
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
+  config.lograge.enabled = true
+  config.lograge.formatter = Lograge::Formatters::Json.new
+
+  config.lograge.custom_options = lambda do |event|
+    {
+      request_id: event.payload[:request_id],
+      user_id: event.payload[:current_user_id],
+      remote_ip: event.payload[:remote_ip],
+      params: event.payload[:params]&.except("controller", "action", "password")
+    }
+  end
+
   # Code is not reloaded between requests.
   config.enable_reloading = false
 

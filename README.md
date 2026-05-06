@@ -64,6 +64,8 @@
 
 ## 🌍 Currently Hosting On
 
+* [Github.io - _eric.wanchic.com_](https://eric.wanchic.com) [![Better Stack Badge](https://uptime.betterstack.com/status-badges/v1/monitor/2jspa.svg)](https://uptime.betterstack.com/?utm_source=status_badge)
+
 ### With Cloudflare WAF - _*.wanchic.net_
 
 * [AWS EC2 (x86) - _aws.wanchic.net_](https://aws.wanchic.net)
@@ -72,9 +74,9 @@
 
 ### Without Cloudflare WAF - _*.wanchic.com_
 
-* [AWS EC2 (x86) - _aws.wanchic.com_](https://aws.wanchic.com)
-* [Azure VM (arm64) - _azure.wanchic.com_](https://azure.wanchic.)
-* [Google VM (x86) - _google.wanchic.com_](https://google.wanchic.com)
+* [AWS EC2 (x86) - _aws.wanchic.com_](https://aws.wanchic.com) [![Better Stack Badge](https://uptime.betterstack.com/status-badges/v1/monitor/2jsp4.svg)](https://uptime.betterstack.com/?utm_source=status_badge)
+* [Azure VM (arm64) - _azure.wanchic.com_](https://azure.wanchic.) [![Better Stack Badge](https://uptime.betterstack.com/status-badges/v1/monitor/2jsp8.svg)](https://uptime.betterstack.com/?utm_source=status_badge)
+* [Google VM (x86) - _google.wanchic.com_](https://google.wanchic.com) [![Better Stack Badge](https://uptime.betterstack.com/status-badges/v1/monitor/2jsp9.svg)](https://uptime.betterstack.com/?utm_source=status_badge)
 
 ## 📦 Docker Images
 
