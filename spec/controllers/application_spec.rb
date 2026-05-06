@@ -27,9 +27,7 @@ RSpec.describe ApplicationController, type: :controller do
     it "adds current_user_id when current_user exists" do
       expect(payload_after_append[:current_user_id]).to eq(123)
     end
-
   end
-
   describe "without a current_user" do
     it "does not add current_user_id when current_user is not defined" do
       expect(payload_after_append).not_to have_key(:current_user_id)
