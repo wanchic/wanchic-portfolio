@@ -3,11 +3,11 @@ set -euo pipefail
 
 version="$(
   sed -nE 's/.*VERSION[[:space:]]*=[[:space:]]*["'\'']([^"'\'']+)["'\''].*/\1/p' \
-    config/initializers/version.rb | head -n1
+    config/initializers/00_version.rb | head -n1
 )"
 
 if [[ -z "$version" ]]; then
-  echo "ERROR: Could not extract VERSION from config/initializers/version.rb" >&2
+  echo "ERROR: Could not extract VERSION from config/initializers/00_version.rb" >&2
   exit 1
 fi
 

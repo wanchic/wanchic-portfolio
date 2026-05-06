@@ -51,8 +51,16 @@ gem "haml-rails", "3.0.0"
 gem "rdoc", "7.2.0"
 
 # BetterStack
+gem "logtail-rails", "0.2.12"
+gem "lograge", "0.14.0"
+
 gem "sentry-ruby"
 gem "sentry-rails"
+
+# OpenTelemetry
+gem "opentelemetry-sdk"
+gem "opentelemetry-exporter-otlp"
+gem "opentelemetry-instrumentation-all"
 
 group :development, :test do
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
