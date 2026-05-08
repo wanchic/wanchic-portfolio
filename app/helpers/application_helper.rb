@@ -21,9 +21,20 @@ module ApplicationHelper
     }
   end
 
+  def app_host
+    ENV.fetch("APP_HOST", "GitHub Pages")
+  end
+
+  def app_version
+    WanchicPortfolio::Application::VERSION
+  end
+
   def ruby_version
     return RUBY_VERSION if RUBY_PATCHLEVEL.zero?
-
     "#{RUBY_VERSION}p#{RUBY_PATCHLEVEL}"
+  end
+
+  def rails_version
+    Rails::VERSION::STRING
   end
 end

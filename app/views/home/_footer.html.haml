@@ -1,4 +1,11 @@
-%footer
-  = copyright_footer(name: "Eric Wanchic", host: "GitHub Pages")
-  = div_break
-  = app_versions_footer
+:ruby
+  footer_data = {
+    name: "Eric Wanchic",
+    host: app_host,
+    ruby: ruby_version,
+    rails: rails_version,
+    app: app_version
+  }
+
+%footer#react-footer
+  = tag.template id: "footer-data", data: footer_data

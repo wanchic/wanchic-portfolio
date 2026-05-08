@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-VERSION_FILE="config/initializers/version.rb"
+VERSION_FILE="config/initializers/00_version.rb"
 
 CURRENT=$(grep VERSION $VERSION_FILE | sed -E "s/.*['\"](.*)['\"].*/\1/")
 
