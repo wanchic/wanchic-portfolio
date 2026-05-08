@@ -9,4 +9,14 @@ module HomeHelper
     text += [ "Hosted on #{host}" ] if host.present?
     content_tag(:div, safe_join(text.compact, " • "))
   end
+
+  def footer_data
+    {
+      name: "Eric Wanchic",
+      host: app_host,
+      ruby: ruby_version,
+      rails: rails_version,
+      app: app_version
+    }
+  end
 end

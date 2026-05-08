@@ -33,6 +33,7 @@ gem "solid_cable"
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", "1.24.1", require: false
 
+gem "jsbundling-rails", "~> 1.3"
 gem "cssbundling-rails", "1.4.3"
 gem "dotenv-rails", "3.2.0"
 

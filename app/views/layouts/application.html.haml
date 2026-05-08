@@ -38,6 +38,7 @@
     / Includes all stylesheet files in app/assets/stylesheets
     = stylesheet_link_tag :app, "other", "styles", "data-turbo-track": "reload"
     = javascript_importmap_tags
+    = javascript_include_tag "application", "data-turbo-track": "reload", type: "module"
 
   %body{ itemscope: "", itemtype: "https://schema.org/Person" }
     = yield

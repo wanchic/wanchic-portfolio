@@ -69,4 +69,31 @@ RSpec.describe HomeHelper, type: :helper do
       expect(html).to be(nil)
     end
   end
+
+  describe "#footer_data" do
+    before do
+      allow(ENV).to receive(:fetch).and_call_original
+      ENV["APP_HOST"] = "Local Environment"
+    end
+
+    it "provides the website author" do
+      expect(helper.footer_data[:name]).to eq("Eric Wanchic")
+    end
+
+    it "provides the website host" do
+      expect(helper.footer_data[:host]).to eq("Local Environment")
+    end
+
+    it "provides the ruby version" do
+      expect(helper.footer_data[:ruby]).to eq(helper.ruby_version)
+    end
+
+    it "provides the rails version" do
+      expect(helper.footer_data[:rails]).to eq(Rails::VERSION::STRING)
+    end
+
+    it "provides the app version" do
+      expect(helper.footer_data[:app]).to eq(WanchicPortfolio::Application::VERSION)
+    end
+  end
 end
