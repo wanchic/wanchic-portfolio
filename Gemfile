@@ -95,7 +95,7 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   # gem 'database_cleaner-active_record'
-  gem "selenium-webdriver", "4.43.0"
+  gem "selenium-webdriver", "4.44.0"
   gem "simplecov", require: false
   gem "simplecov-badge", require: false
 end
