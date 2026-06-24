@@ -25,7 +25,7 @@ jobs:
       app_version: ${{ steps.vers.outputs.app_version }}
       ruby_version: ${{ steps.vers.outputs.ruby_version }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - id: vers
         run: |
           set -euo pipefail
@@ -38,7 +38,7 @@ jobs:
     needs: prep
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v4
@@ -77,7 +77,7 @@ jobs:
     needs: prep
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v4
@@ -116,7 +116,7 @@ jobs:
     needs: [build-amd64, build-arm64, prep]
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v4
